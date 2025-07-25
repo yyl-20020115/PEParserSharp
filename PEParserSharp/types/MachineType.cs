@@ -15,28 +15,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace PEParserSharp.Types
+namespace PEParserSharp.Types;
+
+using UShort = PEParserSharp.Bytes.UShort;
+using MachineTypeType = PEParserSharp.Misc.MachineTypeType;
+
+public class MachineType(UShort value, string descriptiveName) : ByteDefinition<MachineTypeType>(descriptiveName)
 {
-	using UShort = PEParserSharp.Bytes.UShort;
-	using MachineTypeType = PEParserSharp.Misc.MachineTypeType;
 
-	public class MachineType : ByteDefinition<MachineTypeType>
-	{
+    private readonly UShort value = value;
 
-		private readonly UShort value;
+    public override sealed MachineTypeType Get => MachineTypeType.Get(this.value);
 
-		public MachineType(UShort value, string descriptiveName) : base(descriptiveName)
-		{
-
-			this.value = value;
-		}
-
-        public override sealed MachineTypeType Get => MachineTypeType.get(this.value);
-
-        public override void Format(StringBuilder b)
-		{
-			b.Append(DescriptiveName).Append(": ").Append(Get.Description).Append(System.Environment.NewLine);
-		}
-	}
-
+    public override void Format(StringBuilder b) => b.Append(DescriptiveName).Append(": ").Append(Get.Description).Append(System.Environment.NewLine);
 }

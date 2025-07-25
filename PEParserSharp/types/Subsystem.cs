@@ -15,36 +15,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace PEParserSharp.Types
+namespace PEParserSharp.Types;
+
+using UShort = PEParserSharp.Bytes.UShort;
+using SubsystemType = PEParserSharp.Misc.SubsystemType;
+
+public class Subsystem(UShort value, string descriptiveName) : ByteDefinition<SubsystemType>(descriptiveName)
 {
-	using UShort = PEParserSharp.Bytes.UShort;
-	using SubsystemType = PEParserSharp.Misc.SubsystemType;
 
-	public class Subsystem : ByteDefinition<SubsystemType>
-	{
+    private readonly UShort value = value;
 
-		private readonly UShort value;
+    public override sealed SubsystemType Get => SubsystemType.Get(this.value);
 
-		public Subsystem(UShort value, string descriptiveName) : base(descriptiveName)
-		{
-			this.value = value;
-		}
+    public override void Format(StringBuilder b)
+    {
+        SubsystemType s = Get;
 
-        public override sealed SubsystemType Get => SubsystemType.get(this.value);
-
-        public override void Format(StringBuilder b)
-		{
-			SubsystemType s = Get;
-
-			if (s != null)
-			{
-				b.Append(DescriptiveName).Append(": ").Append(s.Description).Append(System.Environment.NewLine);
-			}
-			else
-			{
-				b.Append("ERROR, no subsystem description for value: ").Append(this.value).Append(System.Environment.NewLine);
-			}
-		}
-	}
-
+        if (s != null)
+        {
+            b.Append(DescriptiveName).Append(": ").Append(s.Description).Append(System.Environment.NewLine);
+        }
+        else
+        {
+            b.Append("ERROR, no subsystem description for value: ").Append(this.value).Append(System.Environment.NewLine);
+        }
+    }
 }

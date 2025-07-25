@@ -21,27 +21,19 @@ namespace PEParserSharp.Types;
 
 using UInteger = PEParserSharp.Bytes.UInteger;
 
-public class TimeDate : ByteDefinition<DateTime>
+public class TimeDate(UInteger value, string descriptiveName) : ByteDefinition<DateTime>(descriptiveName)
 {
 
-	private readonly UInteger value;
+    private readonly UInteger value = value;
 
-	public TimeDate(UInteger value, string descriptiveName) : base(descriptiveName)
-	{
-		this.value = value;
-	}
-
-        public override sealed DateTime Get
+    public override sealed DateTime Get
+    {
+        get
         {
-            get
-            {
-                long millis = this.value.LongValue * 1000;
-                return new DateTime(millis);
-            }
+            long millis = this.value.LongValue * 1000;
+            return new DateTime(millis);
         }
+    }
 
-        public override void Format(StringBuilder b)
-	{
-		b.Append(DescriptiveName).Append(": ").Append(Get.ToString()).Append(System.Environment.NewLine);
-	}
+    public override void Format(StringBuilder b) => b.Append(DescriptiveName).Append(": ").Append(Get.ToString()).Append(System.Environment.NewLine);
 }

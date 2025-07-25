@@ -22,19 +22,19 @@ using ByteArray = PEParserSharp.ByteArray;
 public class AsciiString : ByteDefinition<string>
 {
 
-	private readonly string value;
+    private readonly string value;
 
-	public AsciiString(ByteArray bytes, int byteLength, string descriptiveName) : base(descriptiveName)
-	{
+    public AsciiString(ByteArray bytes, int byteLength, string descriptiveName) : base(descriptiveName)
+    {
 
-		sbyte[] stringBytes = bytes.CopyBytes(byteLength);
-		this.value = (StringHelper.NewString(stringBytes, System.Text.Encoding.ASCII)).Trim();
-	}
+        sbyte[] stringBytes = bytes.CopyBytes(byteLength);
+        this.value = (StringHelper.NewString(stringBytes, System.Text.Encoding.ASCII)).Trim();
+    }
 
-        public override sealed string Get => this.value;
+    public override sealed string Get => this.value;
 
-        public override void Format(StringBuilder b)
-	{
-		b.Append(DescriptiveName).Append(": ").Append(this.value).Append(System.Environment.NewLine);
-	}
+    public override void Format(StringBuilder b)
+    {
+        b.Append(DescriptiveName).Append(": ").Append(this.value).Append(System.Environment.NewLine);
+    }
 }

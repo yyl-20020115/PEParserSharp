@@ -15,39 +15,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace PEParserSharp.Types
-{
-	public abstract class ByteDefinition
-    {
-		public abstract void Format(StringBuilder b);
+namespace PEParserSharp.Types;
 
-		public override string ToString()
-		{
-			StringBuilder b = new StringBuilder();
-			Format(b);
-			return b.ToString();
-		}
+public abstract class ByteDefinition
+    {
+	public abstract void Format(StringBuilder b);
+
+	public override string ToString()
+	{
+		var b = new StringBuilder();
+		Format(b);
+		return b.ToString();
+	}
+}
+
+public abstract class ByteDefinition<T> : ByteDefinition
+{
+
+	private readonly string descriptiveName;
+
+	public ByteDefinition(string descriptiveName)
+	{
+		this.descriptiveName = descriptiveName;
 	}
 
-	public abstract class ByteDefinition<T> : ByteDefinition
-	{
+    public string DescriptiveName => this.descriptiveName;
 
-		private readonly string descriptiveName;
-
-		public ByteDefinition(string descriptiveName)
-		{
-			this.descriptiveName = descriptiveName;
-		}
-
-		public string DescriptiveName
-		{
-			get
-			{
-				return this.descriptiveName;
-			}
-		}
-
-        public abstract T Get { get; }
+    public abstract T Get { get; }
     }
-
-}

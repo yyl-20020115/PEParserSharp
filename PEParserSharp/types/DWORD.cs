@@ -15,28 +15,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace PEParserSharp.Types
+namespace PEParserSharp.Types;
+
+
+using UInteger = PEParserSharp.Bytes.UInteger;
+
+
+public class DWORD : ByteDefinition<UInteger>
 {
 
-	using UInteger = PEParserSharp.Bytes.UInteger;
+    private readonly UInteger value;
 
+    public DWORD(UInteger value, string descriptiveName) : base(descriptiveName) => this.value = value;
 
-	public class DWORD : ByteDefinition<UInteger>
-	{
+    public override sealed UInteger Get => this.value;
 
-		private readonly UInteger value;
-
-		public DWORD(UInteger value, string descriptiveName) : base(descriptiveName)
-		{
-			this.value = value;
-		}
-
-        public override sealed UInteger Get => this.value;
-
-        public override void Format(StringBuilder b)
-		{
-			b.Append(DescriptiveName).Append(": ").Append(this.value).Append(" (0x").Append(this.value.ToHexString()).Append(")").Append(System.Environment.NewLine);
-		}
-	}
-
+    public override void Format(StringBuilder b) => b.Append(DescriptiveName).Append(": ").Append(this.value).Append(" (0x").Append(this.value.ToHexString()).Append(")").Append(System.Environment.NewLine);
 }

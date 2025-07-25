@@ -15,44 +15,42 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace PEParserSharp.Types
+namespace PEParserSharp.Types;
+
+using UShort = PEParserSharp.Bytes.UShort;
+
+using DllCharacteristicsType = PEParserSharp.Headers.Flags.DllCharacteristicsType;
+
+public class DllCharacteristics : ByteDefinition<DllCharacteristicsType[]>
 {
-	using UShort = PEParserSharp.Bytes.UShort;
 
-	using DllCharacteristicsType = PEParserSharp.Headers.Flags.DllCharacteristicsType;
+    private readonly UShort value;
 
-	public class DllCharacteristics : ByteDefinition<DllCharacteristicsType[]>
-	{
+    public DllCharacteristics(UShort value, string descriptiveName) : base(descriptiveName)
+    {
+        this.value = value;
+    }
 
-		private readonly UShort value;
+    public override sealed DllCharacteristicsType[] Get => DllCharacteristicsType.Get(this.value);
 
-		public DllCharacteristics(UShort value, string descriptiveName) : base(descriptiveName)
-		{
-			this.value = value;
-		}
-
-        public override sealed DllCharacteristicsType[] Get => DllCharacteristicsType.Get(this.value);
-
-        public override void Format(StringBuilder b)
-		{
-			DllCharacteristicsType[] characteristics = Get;
+    public override void Format(StringBuilder b)
+    {
+        DllCharacteristicsType[] characteristics = Get;
 
 
-			b.Append(DescriptiveName).Append(":").Append(System.Environment.NewLine);
+        b.Append(DescriptiveName).Append(":").Append(System.Environment.NewLine);
 
-			if (characteristics.Length > 0)
-			{
-				foreach (DllCharacteristicsType c in characteristics)
-				{
-					b.Append("\t * ").Append(c.Description).Append(System.Environment.NewLine);
-				}
-			}
-			else
-			{
-				b.Append("\t * none").Append(System.Environment.NewLine);
-			}
-			b.Append(System.Environment.NewLine);
-		}
-	}
-
+        if (characteristics.Length > 0)
+        {
+            foreach (DllCharacteristicsType c in characteristics)
+            {
+                b.Append("\t * ").Append(c.Description).Append(System.Environment.NewLine);
+            }
+        }
+        else
+        {
+            b.Append("\t * none").Append(System.Environment.NewLine);
+        }
+        b.Append(System.Environment.NewLine);
+    }
 }

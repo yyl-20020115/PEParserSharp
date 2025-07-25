@@ -15,27 +15,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace PEParserSharp.Types
+namespace PEParserSharp.Types;
+
+using UShort = PEParserSharp.Bytes.UShort;
+using MagicNumberType = PEParserSharp.Misc.MagicNumberType;
+
+public class MagicNumber(UShort value, string descriptiveName) : ByteDefinition<MagicNumberType>(descriptiveName)
 {
-	using UShort = PEParserSharp.Bytes.UShort;
-	using MagicNumberType = PEParserSharp.Misc.MagicNumberType;
 
-	public class MagicNumber : ByteDefinition<MagicNumberType>
-	{
+    private readonly UShort value = value;
 
-		private readonly UShort value;
+    public override sealed MagicNumberType Get => MagicNumberType.Get(this.value);
 
-		public MagicNumber(UShort value, string descriptiveName) : base(descriptiveName)
-		{
-			this.value = value;
-		}
-
-        public override sealed MagicNumberType Get => MagicNumberType.get(this.value);
-
-        public override sealed void Format(StringBuilder b)
-		{
-			b.Append(DescriptiveName).Append(": ").Append(this.value).Append(" --> ").Append(Get.Description).Append(System.Environment.NewLine);
-		}
-	}
-
+    public override sealed void Format(StringBuilder b) => b.Append(DescriptiveName).Append(": ").Append(this.value).Append(" --> ").Append(Get.Description).Append(System.Environment.NewLine);
 }

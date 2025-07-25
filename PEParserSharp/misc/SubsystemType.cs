@@ -21,19 +21,19 @@ using UShort = PEParserSharp.Bytes.UShort;
 
 public sealed class SubsystemType
 {
-	public static readonly SubsystemType IMAGE_SYSTEM_UNKNOWN = new SubsystemType("IMAGE_SYSTEM_UNKNOWN", InnerEnum.IMAGE_SYSTEM_UNKNOWN, 0, "unknown subsystem");
-	public static readonly SubsystemType IMAGE_SUBSYSTEM_NATIVE = new SubsystemType("IMAGE_SUBSYSTEM_NATIVE", InnerEnum.IMAGE_SUBSYSTEM_NATIVE, 1, "Device drivers and native Windows processes");
-	public static readonly SubsystemType IMAGE_SUBSYSTEM_WINDOWS_GUI = new SubsystemType("IMAGE_SUBSYSTEM_WINDOWS_GUI", InnerEnum.IMAGE_SUBSYSTEM_WINDOWS_GUI, 2, "The Windows graphical user interface (GUI) subsystem");
-	public static readonly SubsystemType IMAGE_SUBSYSTEM_WINDOWS_CUI = new SubsystemType("IMAGE_SUBSYSTEM_WINDOWS_CUI", InnerEnum.IMAGE_SUBSYSTEM_WINDOWS_CUI, 3, "The Windows character subsystem");
-	public static readonly SubsystemType IMAGE_SUBSYSTEM_POSIX_CUI = new SubsystemType("IMAGE_SUBSYSTEM_POSIX_CUI", InnerEnum.IMAGE_SUBSYSTEM_POSIX_CUI, 7, "The Posix character subsystem");
-	public static readonly SubsystemType IMAGE_SUBSYSTEM_WINDOWS_CE_GUI = new SubsystemType("IMAGE_SUBSYSTEM_WINDOWS_CE_GUI", InnerEnum.IMAGE_SUBSYSTEM_WINDOWS_CE_GUI, 9, "Windows CE");
-	public static readonly SubsystemType IMAGE_SUBSYSTEM_EFI_APPLICATION = new SubsystemType("IMAGE_SUBSYSTEM_EFI_APPLICATION", InnerEnum.IMAGE_SUBSYSTEM_EFI_APPLICATION, 10, "An Extensible Firmware Interface (EFI) application");
-	public static readonly SubsystemType IMAGE_SUBSYSTEM_EFI_BOOT_SERVICE_DRIVER = new SubsystemType("IMAGE_SUBSYSTEM_EFI_BOOT_SERVICE_DRIVER", InnerEnum.IMAGE_SUBSYSTEM_EFI_BOOT_SERVICE_DRIVER, 11, "An EFI driver with boot services");
-	public static readonly SubsystemType IMAGE_SUBSYSTEM_EFI_RUNTIME_DRIVER = new SubsystemType("IMAGE_SUBSYSTEM_EFI_RUNTIME_DRIVER", InnerEnum.IMAGE_SUBSYSTEM_EFI_RUNTIME_DRIVER, 12, "An EFI driver with run-time services");
-	public static readonly SubsystemType IMAGE_SUBSYSTEM_EFI_ROM = new SubsystemType("IMAGE_SUBSYSTEM_EFI_ROM", InnerEnum.IMAGE_SUBSYSTEM_EFI_ROM, 13, "An EFI ROM image");
-	public static readonly SubsystemType IMAGE_SUBSYSTEM_XBOX = new SubsystemType("IMAGE_SUBSYSTEM_XBOX", InnerEnum.IMAGE_SUBSYSTEM_XBOX, 14, "XBOX");
+	public static readonly SubsystemType IMAGE_SYSTEM_UNKNOWN = new ("IMAGE_SYSTEM_UNKNOWN", InnerEnum.IMAGE_SYSTEM_UNKNOWN, 0, "unknown subsystem");
+	public static readonly SubsystemType IMAGE_SUBSYSTEM_NATIVE = new ("IMAGE_SUBSYSTEM_NATIVE", InnerEnum.IMAGE_SUBSYSTEM_NATIVE, 1, "Device drivers and native Windows processes");
+	public static readonly SubsystemType IMAGE_SUBSYSTEM_WINDOWS_GUI = new ("IMAGE_SUBSYSTEM_WINDOWS_GUI", InnerEnum.IMAGE_SUBSYSTEM_WINDOWS_GUI, 2, "The Windows graphical user interface (GUI) subsystem");
+	public static readonly SubsystemType IMAGE_SUBSYSTEM_WINDOWS_CUI = new ("IMAGE_SUBSYSTEM_WINDOWS_CUI", InnerEnum.IMAGE_SUBSYSTEM_WINDOWS_CUI, 3, "The Windows character subsystem");
+	public static readonly SubsystemType IMAGE_SUBSYSTEM_POSIX_CUI = new ("IMAGE_SUBSYSTEM_POSIX_CUI", InnerEnum.IMAGE_SUBSYSTEM_POSIX_CUI, 7, "The Posix character subsystem");
+	public static readonly SubsystemType IMAGE_SUBSYSTEM_WINDOWS_CE_GUI = new ("IMAGE_SUBSYSTEM_WINDOWS_CE_GUI", InnerEnum.IMAGE_SUBSYSTEM_WINDOWS_CE_GUI, 9, "Windows CE");
+	public static readonly SubsystemType IMAGE_SUBSYSTEM_EFI_APPLICATION = new ("IMAGE_SUBSYSTEM_EFI_APPLICATION", InnerEnum.IMAGE_SUBSYSTEM_EFI_APPLICATION, 10, "An Extensible Firmware Interface (EFI) application");
+	public static readonly SubsystemType IMAGE_SUBSYSTEM_EFI_BOOT_SERVICE_DRIVER = new ("IMAGE_SUBSYSTEM_EFI_BOOT_SERVICE_DRIVER", InnerEnum.IMAGE_SUBSYSTEM_EFI_BOOT_SERVICE_DRIVER, 11, "An EFI driver with boot services");
+	public static readonly SubsystemType IMAGE_SUBSYSTEM_EFI_RUNTIME_DRIVER = new ("IMAGE_SUBSYSTEM_EFI_RUNTIME_DRIVER", InnerEnum.IMAGE_SUBSYSTEM_EFI_RUNTIME_DRIVER, 12, "An EFI driver with run-time services");
+	public static readonly SubsystemType IMAGE_SUBSYSTEM_EFI_ROM = new ("IMAGE_SUBSYSTEM_EFI_ROM", InnerEnum.IMAGE_SUBSYSTEM_EFI_ROM, 13, "An EFI ROM image");
+	public static readonly SubsystemType IMAGE_SUBSYSTEM_XBOX = new ("IMAGE_SUBSYSTEM_XBOX", InnerEnum.IMAGE_SUBSYSTEM_XBOX, 14, "XBOX");
 
-	private static readonly List<SubsystemType> valueList = new List<SubsystemType>();
+	private static readonly List<SubsystemType> valueList = [];
 
 	static SubsystemType()
 	{
@@ -50,7 +50,7 @@ public sealed class SubsystemType
 		valueList.Add(IMAGE_SUBSYSTEM_XBOX);
 	}
 
-	public enum InnerEnum
+	public enum InnerEnum : int
 	{
 		IMAGE_SYSTEM_UNKNOWN,
 		IMAGE_SUBSYSTEM_NATIVE,
@@ -83,11 +83,11 @@ public sealed class SubsystemType
 		innerEnumValue = innerEnum;
 	}
 
-	public static SubsystemType get(PEParserSharp.Bytes.UShort value)
+	public static SubsystemType Get(PEParserSharp.Bytes.UShort value)
 	{
 		int valueAsInt = value.IntValue;
 
-		foreach (SubsystemType c in values())
+		foreach (SubsystemType c in Values)
 		{
 			if (c.intValue == valueAsInt)
 			{
@@ -98,30 +98,15 @@ public sealed class SubsystemType
 		return null;
 	}
 
-	public string Description
-	{
-		get
-		{
-			return this.description;
-		}
-	}
+    public string Description => this.description;
 
-	public static SubsystemType[] values()
-	{
-		return valueList.ToArray();
-	}
+    public static SubsystemType[] Values => [.. valueList];
 
-	public int ordinal()
-	{
-		return ordinalValue;
-	}
+    public int Ordinal() => ordinalValue;
 
-	public override string ToString()
-	{
-		return nameValue;
-	}
+    public override string ToString() => nameValue;
 
-	public static SubsystemType valueOf(string name)
+    public static SubsystemType ValueOf(string name)
 	{
 		foreach (SubsystemType enumInstance in SubsystemType.valueList)
 		{

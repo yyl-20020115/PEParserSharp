@@ -15,27 +15,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace PEParserSharp.Types
+namespace PEParserSharp.Types;
+
+
+using ULong = PEParserSharp.Bytes.ULong;
+
+public class DWORD_WIDE(ULong value, string descriptiveName) : ByteDefinition<ULong>(descriptiveName)
 {
 
-	using ULong = PEParserSharp.Bytes.ULong;
+    private readonly ULong value = value;
 
-	public class DWORD_WIDE : ByteDefinition<ULong>
-	{
+    public override sealed ULong Get => this.value;
 
-		private readonly ULong value;
-
-		public DWORD_WIDE(ULong value, string descriptiveName) : base(descriptiveName)
-		{
-			this.value = value;
-		}
-
-        public override sealed ULong Get => this.value;
-
-        public override void Format(StringBuilder b)
-		{
-			b.Append(DescriptiveName).Append(": ").Append(this.value).Append(" (0x").Append(this.value.ToHexString()).Append(")").Append(System.Environment.NewLine);
-		}
-	}
-
+    public override void Format(StringBuilder b) => b.Append(DescriptiveName).Append(": ").Append(this.value).Append(" (0x").Append(this.value.ToHexString()).Append(")").Append(System.Environment.NewLine);
 }

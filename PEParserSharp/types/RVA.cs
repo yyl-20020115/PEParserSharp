@@ -15,26 +15,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace PEParserSharp.Types
+namespace PEParserSharp.Types;
+
+using UInteger = PEParserSharp.Bytes.UInteger;
+
+public class RVA : ByteDefinition<UInteger>
 {
-	using UInteger = PEParserSharp.Bytes.UInteger;
 
-	public class RVA : ByteDefinition<UInteger>
-	{
+    private readonly UInteger value;
 
-		private readonly UInteger value;
+    public RVA(UInteger value, string descriptiveName) : base(descriptiveName)
+    {
+        this.value = value;
+    }
 
-		public RVA(UInteger value, string descriptiveName) : base(descriptiveName)
-		{
-			this.value = value;
-		}
+    public override sealed UInteger Get => this.value;
 
-        public override sealed UInteger Get => this.value;
-
-        public override void Format(StringBuilder b)
-		{
-			b.Append(DescriptiveName).Append(": ").Append(this.value.LongValue).Append(System.Environment.NewLine);
-		}
-	}
-
+    public override void Format(StringBuilder b) => b.Append(DescriptiveName).Append(": ").Append(this.value.LongValue).Append(System.Environment.NewLine);
 }

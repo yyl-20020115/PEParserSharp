@@ -20,15 +20,10 @@ namespace PEParserSharp.Types;
 
 using UInteger = PEParserSharp.Bytes.UInteger;
 
-public class TInteger : ByteDefinition<UInteger>
+public class TInteger(UInteger value, string descriptiveName) : ByteDefinition<UInteger>(descriptiveName)
 {
 
-    private readonly UInteger value;
-
-    public TInteger(UInteger value, string descriptiveName) : base(descriptiveName)
-    {
-        this.value = value;
-    }
+    private readonly UInteger value = value;
 
     public override sealed UInteger Get => this.value;
 

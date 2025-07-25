@@ -21,10 +21,10 @@ using UShort = PEParserSharp.Bytes.UShort;
 
 public sealed class MagicNumberType
 {
-	public static readonly MagicNumberType NONE = new MagicNumberType("NONE", InnerEnum.NONE, "", "ERROR, unable to recognize magic number");
-	public static readonly MagicNumberType PE32 = new MagicNumberType("PE32", InnerEnum.PE32, "10B", "PE32, normal executable file");
-	public static readonly MagicNumberType PE32_PLUS = new MagicNumberType("PE32_PLUS", InnerEnum.PE32_PLUS, "20B", "PE32+ executable");
-	public static readonly MagicNumberType ROM = new MagicNumberType("ROM", InnerEnum.ROM, "107", "ROM image");
+	public static readonly MagicNumberType NONE = new ("NONE", InnerEnum.NONE, "", "ERROR, unable to recognize magic number");
+	public static readonly MagicNumberType PE32 = new ("PE32", InnerEnum.PE32, "10B", "PE32, normal executable file");
+	public static readonly MagicNumberType PE32_PLUS = new ("PE32_PLUS", InnerEnum.PE32_PLUS, "20B", "PE32+ executable");
+	public static readonly MagicNumberType ROM = new ("ROM", InnerEnum.ROM, "107", "ROM image");
 
 	private static readonly List<MagicNumberType> valueList = new List<MagicNumberType>();
 
@@ -36,7 +36,7 @@ public sealed class MagicNumberType
 		valueList.Add(ROM);
 	}
 
-	public enum InnerEnum
+	public enum InnerEnum : int
 	{
 		NONE,
 		PE32,
@@ -62,11 +62,11 @@ public sealed class MagicNumberType
 		innerEnumValue = innerEnum;
 	}
 
-	public static MagicNumberType get(PEParserSharp.Bytes.UShort value)
+	public static MagicNumberType Get(PEParserSharp.Bytes.UShort value)
 	{
 		string key = value.ToHexString();
 
-		foreach (MagicNumberType mt in values())
+		foreach (MagicNumberType mt in Values)
 		{
 			if (key.Equals(mt.hexValue))
 			{
@@ -77,30 +77,15 @@ public sealed class MagicNumberType
 		return NONE;
 	}
 
-	public string Description
-	{
-		get
-		{
-			return this.description;
-		}
-	}
+    public string Description => this.description;
 
-	public static MagicNumberType[] values()
-	{
-		return valueList.ToArray();
-	}
+    public static MagicNumberType[] Values => [.. valueList];
 
-	public int ordinal()
-	{
-		return ordinalValue;
-	}
+    public int Ordinal => ordinalValue;
 
-	public override string ToString()
-	{
-		return nameValue;
-	}
+    public override string ToString() => nameValue;
 
-	public static MagicNumberType valueOf(string name)
+    public static MagicNumberType ValueOf(string name)
 	{
 		foreach (MagicNumberType enumInstance in MagicNumberType.valueList)
 		{

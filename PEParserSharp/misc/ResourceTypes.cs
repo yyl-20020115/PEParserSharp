@@ -16,33 +16,33 @@ using UInteger = PEParserSharp.Bytes.UInteger;
 
 public sealed class ResourceTypes
 {
-	public static readonly ResourceTypes N_1 = new ResourceTypes("N_1", InnerEnum.N_1, "???_0");
-	public static readonly ResourceTypes CURSOR = new ResourceTypes("CURSOR", InnerEnum.CURSOR, "Cursor");
-	public static readonly ResourceTypes BITMAP = new ResourceTypes("BITMAP", InnerEnum.BITMAP, "Bitmap");
-	public static readonly ResourceTypes ICON = new ResourceTypes("ICON", InnerEnum.ICON, "Icon");
-	public static readonly ResourceTypes MENU = new ResourceTypes("MENU", InnerEnum.MENU, "Menu");
-	public static readonly ResourceTypes DLG_BOX = new ResourceTypes("DLG_BOX", InnerEnum.DLG_BOX, "Fialog Box");
-	public static readonly ResourceTypes STRING_TABLE_ENTRY = new ResourceTypes("STRING_TABLE_ENTRY", InnerEnum.STRING_TABLE_ENTRY, "String");
-	public static readonly ResourceTypes FONT_DIR = new ResourceTypes("FONT_DIR", InnerEnum.FONT_DIR, "Font Directory");
-	public static readonly ResourceTypes FONT = new ResourceTypes("FONT", InnerEnum.FONT, "Font");
-	public static readonly ResourceTypes ACCEL_TABLE = new ResourceTypes("ACCEL_TABLE", InnerEnum.ACCEL_TABLE, "Accelerators");
-	public static readonly ResourceTypes RAW_DATA = new ResourceTypes("RAW_DATA", InnerEnum.RAW_DATA, "application defined resource (raw data)");
-	public static readonly ResourceTypes MESSAGE_TABLE_ENTRY = new ResourceTypes("MESSAGE_TABLE_ENTRY", InnerEnum.MESSAGE_TABLE_ENTRY, "Message entry");
-	public static readonly ResourceTypes GROUP_CURSOR = new ResourceTypes("GROUP_CURSOR", InnerEnum.GROUP_CURSOR, "Group Cursor");
-	public static readonly ResourceTypes N_13 = new ResourceTypes("N_13", InnerEnum.N_13, "???_13");
-	public static readonly ResourceTypes GROUP_ICON = new ResourceTypes("GROUP_ICON", InnerEnum.GROUP_ICON, "Group Icon");
-	public static readonly ResourceTypes N_15 = new ResourceTypes("N_15", InnerEnum.N_15, "???_15");
-	public static readonly ResourceTypes VER_INFO = new ResourceTypes("VER_INFO", InnerEnum.VER_INFO, "Version");
-	public static readonly ResourceTypes DLG_INCLUDE = new ResourceTypes("DLG_INCLUDE", InnerEnum.DLG_INCLUDE, "dlginclude");
-	public static readonly ResourceTypes N_18 = new ResourceTypes("N_18", InnerEnum.N_18, "???_18");
-	public static readonly ResourceTypes PNP_RESOURCE = new ResourceTypes("PNP_RESOURCE", InnerEnum.PNP_RESOURCE, "Plug and Play Resource");
-	public static readonly ResourceTypes VXD = new ResourceTypes("VXD", InnerEnum.VXD, "VXD");
-	public static readonly ResourceTypes ANIM_CURSOR = new ResourceTypes("ANIM_CURSOR", InnerEnum.ANIM_CURSOR, "Animated Cursor");
-	public static readonly ResourceTypes ANIM_ICON = new ResourceTypes("ANIM_ICON", InnerEnum.ANIM_ICON, "Animated Icon");
-	public static readonly ResourceTypes HTML = new ResourceTypes("HTML", InnerEnum.HTML, "HTML");
-	public static readonly ResourceTypes MANIFEST = new ResourceTypes("MANIFEST", InnerEnum.MANIFEST, "Manifest");
+	public static readonly ResourceTypes N_1 = new ("N_1", InnerEnum.N_1, "???_0");
+	public static readonly ResourceTypes CURSOR = new ("CURSOR", InnerEnum.CURSOR, "Cursor");
+	public static readonly ResourceTypes BITMAP = new ("BITMAP", InnerEnum.BITMAP, "Bitmap");
+	public static readonly ResourceTypes ICON = new ("ICON", InnerEnum.ICON, "Icon");
+	public static readonly ResourceTypes MENU = new ("MENU", InnerEnum.MENU, "Menu");
+	public static readonly ResourceTypes DLG_BOX = new ("DLG_BOX", InnerEnum.DLG_BOX, "Fialog Box");
+	public static readonly ResourceTypes STRING_TABLE_ENTRY = new ("STRING_TABLE_ENTRY", InnerEnum.STRING_TABLE_ENTRY, "String");
+	public static readonly ResourceTypes FONT_DIR = new ("FONT_DIR", InnerEnum.FONT_DIR, "Font Directory");
+	public static readonly ResourceTypes FONT = new ("FONT", InnerEnum.FONT, "Font");
+	public static readonly ResourceTypes ACCEL_TABLE = new ("ACCEL_TABLE", InnerEnum.ACCEL_TABLE, "Accelerators");
+	public static readonly ResourceTypes RAW_DATA = new ("RAW_DATA", InnerEnum.RAW_DATA, "application defined resource (raw data)");
+	public static readonly ResourceTypes MESSAGE_TABLE_ENTRY = new ("MESSAGE_TABLE_ENTRY", InnerEnum.MESSAGE_TABLE_ENTRY, "Message entry");
+	public static readonly ResourceTypes GROUP_CURSOR = new ("GROUP_CURSOR", InnerEnum.GROUP_CURSOR, "Group Cursor");
+	public static readonly ResourceTypes N_13 = new ("N_13", InnerEnum.N_13, "???_13");
+	public static readonly ResourceTypes GROUP_ICON = new ("GROUP_ICON", InnerEnum.GROUP_ICON, "Group Icon");
+	public static readonly ResourceTypes N_15 = new ("N_15", InnerEnum.N_15, "???_15");
+	public static readonly ResourceTypes VER_INFO = new ("VER_INFO", InnerEnum.VER_INFO, "Version");
+	public static readonly ResourceTypes DLG_INCLUDE = new ("DLG_INCLUDE", InnerEnum.DLG_INCLUDE, "dlginclude");
+	public static readonly ResourceTypes N_18 = new ("N_18", InnerEnum.N_18, "???_18");
+	public static readonly ResourceTypes PNP_RESOURCE = new ("PNP_RESOURCE", InnerEnum.PNP_RESOURCE, "Plug and Play Resource");
+	public static readonly ResourceTypes VXD = new ("VXD", InnerEnum.VXD, "VXD");
+	public static readonly ResourceTypes ANIM_CURSOR = new ("ANIM_CURSOR", InnerEnum.ANIM_CURSOR, "Animated Cursor");
+	public static readonly ResourceTypes ANIM_ICON = new ("ANIM_ICON", InnerEnum.ANIM_ICON, "Animated Icon");
+	public static readonly ResourceTypes HTML = new ("HTML", InnerEnum.HTML, "HTML");
+	public static readonly ResourceTypes MANIFEST = new ("MANIFEST", InnerEnum.MANIFEST, "Manifest");
 
-	private static readonly List<ResourceTypes> valueList = new List<ResourceTypes>();
+	private static readonly List<ResourceTypes> valueList = [];
 
 	static ResourceTypes()
 	{
@@ -73,7 +73,7 @@ public sealed class ResourceTypes
 		valueList.Add(MANIFEST);
 	}
 
-	public enum InnerEnum
+	public enum InnerEnum : int
 	{
 		N_1,
 		CURSOR,
@@ -126,13 +126,13 @@ public sealed class ResourceTypes
 		}
 	}
 
-	public static ResourceTypes get(PEParserSharp.Bytes.UInteger valueInt)
+	public static ResourceTypes Get(PEParserSharp.Bytes.UInteger valueInt)
 	{
 		int valueAsInt = valueInt.IntValue;
 
-		foreach (ResourceTypes t in values())
+		foreach (ResourceTypes t in Values)
 		{
-			if (valueAsInt == t.ordinal())
+			if (valueAsInt == t.Ordinal)
 			{
 				return t;
 			}
@@ -141,13 +141,7 @@ public sealed class ResourceTypes
 		return null;
 	}
 
-	public static ResourceTypes[] values()
-	{
-		return valueList.ToArray();
-	}
+    public static ResourceTypes[] Values => [.. valueList];
 
-	public int ordinal()
-	{
-		return ordinalValue;
-	}
+    public int Ordinal => ordinalValue;
 }

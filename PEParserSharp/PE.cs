@@ -305,7 +305,7 @@ public class PeFile
                     LinkedList<ResourceDirectoryEntry> directoryEntries = new();
                     LinkedList<ResourceDirectoryEntry> resourceEntries = new();
 
-                    ResourceDirectoryEntry entry = null;
+                    //ResourceDirectoryEntry entry = null;
                     ResourceDirectoryHeader root = (ResourceDirectoryHeader)mainEntry.data;
 
                     foreach (ResourceDirectoryEntry rootEntry in root.entries)

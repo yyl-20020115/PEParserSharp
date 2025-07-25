@@ -15,43 +15,41 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace PEParserSharp.Types
+namespace PEParserSharp.Types;
+
+using UInteger = PEParserSharp.Bytes.UInteger;
+using SectionCharacteristicsType = PEParserSharp.Headers.Flags.SectionCharacteristicsType;
+
+public class SectionCharacteristics : ByteDefinition<SectionCharacteristicsType[]>
 {
-	using UInteger = PEParserSharp.Bytes.UInteger;
-	using SectionCharacteristicsType = PEParserSharp.Headers.Flags.SectionCharacteristicsType;
 
-	public class SectionCharacteristics : ByteDefinition<SectionCharacteristicsType[]>
-	{
+    private readonly UInteger value;
 
-		private readonly UInteger value;
+    public SectionCharacteristics(UInteger value, string descriptiveName) : base(descriptiveName)
+    {
+        this.value = value;
+    }
 
-		public SectionCharacteristics(UInteger value, string descriptiveName) : base(descriptiveName)
-		{
-			this.value = value;
-		}
+    public override sealed SectionCharacteristicsType[] Get => SectionCharacteristicsType.Get(this.value);
 
-        public override sealed SectionCharacteristicsType[] Get => SectionCharacteristicsType.Get(this.value);
+    public override void Format(StringBuilder b)
+    {
+        SectionCharacteristicsType[] characteristics = Get;
 
-        public override void Format(StringBuilder b)
-		{
-			SectionCharacteristicsType[] characteristics = Get;
+        b.Append(DescriptiveName).Append(": ").Append(System.Environment.NewLine);
 
-			b.Append(DescriptiveName).Append(": ").Append(System.Environment.NewLine);
+        if (characteristics.Length > 0)
+        {
+            foreach (SectionCharacteristicsType c in characteristics)
+            {
+                b.Append("\t * ").Append(c.Description).Append(System.Environment.NewLine);
+            }
+        }
+        else
+        {
+            b.Append("\t * none").Append(System.Environment.NewLine);
+        }
 
-			if (characteristics.Length > 0)
-			{
-				foreach (SectionCharacteristicsType c in characteristics)
-				{
-					b.Append("\t * ").Append(c.Description).Append(System.Environment.NewLine);
-				}
-			}
-			else
-			{
-				b.Append("\t * none").Append(System.Environment.NewLine);
-			}
-
-			b.Append(System.Environment.NewLine);
-		}
-	}
-
+        b.Append(System.Environment.NewLine);
+    }
 }

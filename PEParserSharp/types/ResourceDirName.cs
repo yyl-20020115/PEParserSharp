@@ -16,122 +16,120 @@ using System.Text;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace PEParserSharp.Types
+namespace PEParserSharp.Types;
+
+
+using UInteger = PEParserSharp.Bytes.UInteger;
+using ByteArray = PEParserSharp.ByteArray;
+using ResourceTypes = PEParserSharp.Misc.ResourceTypes;
+
+public class ResourceDirName : ByteDefinition<string>
 {
 
-	using UInteger = PEParserSharp.Bytes.UInteger;
-	using ByteArray = PEParserSharp.ByteArray;
-	using ResourceTypes = PEParserSharp.Misc.ResourceTypes;
+    private const int NAME_IS_STRING_MASK = unchecked((int)0x80000000);
+    private const int NAME_OFFSET_MASK = 0x7FFFFFFF;
 
-	public class ResourceDirName : ByteDefinition<string>
-	{
+    private readonly string value;
+    private readonly int level;
 
-		private const int NAME_IS_STRING_MASK = unchecked((int)0x80000000);
-		private const int NAME_OFFSET_MASK = 0x7FFFFFFF;
+    public ResourceDirName(UInteger intValue, string descriptiveName, ByteArray bytes, int level) : base(descriptiveName)
+    {
 
-		private readonly string value;
-		private readonly int level;
+        this.level = level;
 
-		public ResourceDirName(UInteger intValue, string descriptiveName, ByteArray bytes, int level) : base(descriptiveName)
-		{
+        /*
+		* This field contains either an integer ID or a pointer to a structure that contains a string name.
+		*
+		* If the high bit (0x80000000) is zero, this field is interpreted as an integer ID.
+		*
+		* If the high bit is nonzero, the lower 31 bits are an offset (relative to the start of the resources) to an
+		* IMAGE_RESOURCE_DIR_STRING_U structure. This structure contains a WORD character count, followed by a UNICODE
+		* string with the resource name.
+		*
+		* Yes, even PE files intended for non-UNICODE Win32 implementations use UNICODE here. To convert the UNICODE
+		* string to an ANSI string, use the WideCharToMultiByte function.
+		*/
+        long valueInt = intValue.LongValue;
 
-			this.level = level;
+        // now process the name
+        bool isString = 0 != (valueInt & NAME_IS_STRING_MASK);
 
-			/*
-			* This field contains either an integer ID or a pointer to a structure that contains a string name.
-			*
-			* If the high bit (0x80000000) is zero, this field is interpreted as an integer ID.
-			*
-			* If the high bit is nonzero, the lower 31 bits are an offset (relative to the start of the resources) to an
-			* IMAGE_RESOURCE_DIR_STRING_U structure. This structure contains a WORD character count, followed by a UNICODE
-			* string with the resource name.
-			*
-			* Yes, even PE files intended for non-UNICODE Win32 implementations use UNICODE here. To convert the UNICODE
-			* string to an ANSI string, use the WideCharToMultiByte function.
-			*/
-			long valueInt = intValue.LongValue;
+        if (isString)
+        {
+            int savedPosition = bytes.Position;
+            //
+            // High bit is 1
+            //
+            long offset = valueInt & NAME_OFFSET_MASK;
 
-			// now process the name
-			bool isString = 0 != (valueInt & NAME_IS_STRING_MASK);
+            if (offset > int.MaxValue)
+            {
+                throw new Exception("Unable to set offset to more than 2gb!");
+            }
 
-			if (isString)
-			{
-				int savedPosition = bytes.Position;
-				//
-				// High bit is 1
-				//
-				long offset = valueInt & NAME_OFFSET_MASK;
+            // offset from the start of the resource data to the name string of this particular resource.
+            bytes.Seek(bytes.Marked + (int)offset);
+            int length = bytes.ReadUShort(2).IntValue;
 
-				if (offset > int.MaxValue)
-				{
-					throw new Exception("Unable to set offset to more than 2gb!");
-				}
+            sbyte[] buff = new sbyte[length * 2]; // UTF-8 chars are 16 bits = 2
+                                                  // bytes
+            for (int i = 0; i < buff.Length; i++)
+            {
+                buff[i] = bytes.ReadUByte().ByteValue;
+            }
 
-				// offset from the start of the resource data to the name string of this particular resource.
-				bytes.Seek(bytes.Marked + (int) offset);
-				int length = bytes.ReadUShort(2).IntValue;
+            // go back
+            bytes.Seek(savedPosition);
+            this.value = (StringHelper.NewString(buff, System.Text.Encoding.Unicode)).Trim();
+        }
+        else
+        {
+            //
+            // High bit is 0
+            //
 
-				sbyte[] buff = new sbyte[length * 2]; // UTF-8 chars are 16 bits = 2
-				// bytes
-				for (int i = 0; i < buff.Length; i++)
-				{
-					buff[i] = bytes.ReadUByte().ByteValue;
-				}
+            // if it's NOT a STRING, then we do additional lookups.
 
-				// go back
-				bytes.Seek(savedPosition);
-				this.value = (StringHelper.NewString(buff, System.Text.Encoding.Unicode)).Trim();
-			}
-			else
-			{
-				//
-				// High bit is 0
-				//
+            // determine what "name" means
+            switch (level)
+            {
+                case 1: // TYPE
+                    this.value = ResourceTypes.Get(intValue).DetailedInfo;
+                    break;
+                case 2: // NAME
+                    this.value = intValue.ToHexString();
+                    break;
+                case 3: // Language ID
+                    this.value = intValue.ToHexString();
+                    break;
+                default:
+                    this.value = intValue.ToHexString();
+                    break;
+            }
+        }
+    }
 
-				// if it's NOT a STRING, then we do additional lookups.
+    public override sealed string Get => this.value;
 
-				// determine what "name" means
-				switch (level)
-				{
-					case 1: // TYPE
-						this.value = ResourceTypes.get(intValue).DetailedInfo;
-						break;
-					case 2: // NAME
-						this.value = intValue.ToHexString();
-						break;
-					case 3: // Language ID
-						this.value = intValue.ToHexString();
-						break;
-					default:
-						this.value = intValue.ToHexString();
-						break;
-				}
-			}
-		}
-
-        public override sealed string Get => this.value;
-
-        public override void Format(StringBuilder b)
-		{
-			b.Append(DescriptiveName).Append(": ");
-			switch (this.level)
-			{
-				case 1: // TYPE
-					break;
-				case 2: // NAME
-					b.Append("name: ");
-					break;
-				case 3: // Language ID
-					b.Append("Language: ");
-					break;
-				default:
-					b.Append("??: ");
-					break;
-			}
+    public override void Format(StringBuilder b)
+    {
+        b.Append(DescriptiveName).Append(": ");
+        switch (this.level)
+        {
+            case 1: // TYPE
+                break;
+            case 2: // NAME
+                b.Append("name: ");
+                break;
+            case 3: // Language ID
+                b.Append("Language: ");
+                break;
+            default:
+                b.Append("??: ");
+                break;
+        }
 
 
-			b.Append(this.value).Append(System.Environment.NewLine);
-		}
-	}
-
+        b.Append(this.value).Append(System.Environment.NewLine);
+    }
 }
