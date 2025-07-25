@@ -15,11 +15,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace PEParserSharp.types
+namespace PEParserSharp.Types
 {
 	using UInteger = PEParserSharp.Bytes.UInteger;
 	using ULong = PEParserSharp.Bytes.ULong;
-	using ImageBaseType = PEParserSharp.misc.ImageBaseType;
+	using ImageBaseType = PEParserSharp.Misc.ImageBaseType;
 
 	public class ImageBase_Wide : ByteDefinition<ULong>
 	{
@@ -31,16 +31,13 @@ namespace PEParserSharp.types
 			this.value = value;
 		}
 
-		public override sealed ULong get()
-		{
-			return this.value;
-		}
+        public override sealed ULong get => this.value;
 
-		public override void format(StringBuilder b)
+        public override void Format(StringBuilder b)
 		{
-			ImageBaseType imageBase = ImageBaseType.get(UInteger.valueOf(this.value.longValue()));
+			ImageBaseType imageBase = ImageBaseType.get(UInteger.ValueOf(this.value.longValue));
 
-			b.Append(DescriptiveName).Append(": ").Append(this.value).Append(" (0x").Append(this.value.toHexString()).Append(") (");
+			b.Append(DescriptiveName).Append(": ").Append(this.value).Append(" (0x").Append(this.value.ToHexString()).Append(") (");
 
 			if (imageBase != null)
 			{

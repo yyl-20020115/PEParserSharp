@@ -15,16 +15,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace PEParserSharp.types
+namespace PEParserSharp.Types
 {
 	public abstract class ByteDefinition
     {
-		public abstract void format(StringBuilder b);
+		public abstract void Format(StringBuilder b);
 
 		public override string ToString()
 		{
 			StringBuilder b = new StringBuilder();
-			format(b);
+			Format(b);
 			return b.ToString();
 		}
 	}
@@ -47,7 +47,7 @@ namespace PEParserSharp.types
 			}
 		}
 
-		public abstract T get();
-	}
+        public abstract T get { get; }
+    }
 
 }

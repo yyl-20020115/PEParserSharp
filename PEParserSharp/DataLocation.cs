@@ -13,35 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace PEParserSharp
+namespace PEParserSharp;
+public class DataLocation(int location, int size)
 {
-	public class DataLocation
-	{
 
-		private readonly int location;
-		private readonly int size;
+	private readonly int location = location;
+	private readonly int size = size;
 
-		public DataLocation(int location, int size)
-		{
-			this.location = location;
-			this.size = size;
-		}
+    public virtual int Location => location;
 
-		public virtual int Location
-		{
-			get
-			{
-				return this.location;
-			}
-		}
-
-		public virtual int Size
-		{
-			get
-			{
-				return this.size;
-			}
-		}
-	}
-
+    public virtual int Size => size;
 }

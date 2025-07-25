@@ -35,43 +35,45 @@
 /// ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 /// POSSIBILITY OF SUCH DAMAGE.
 /// </summary>
-namespace PEParserSharp.Bytes
-{
-	public abstract class Number
+namespace PEParserSharp.Bytes;
+
+public abstract class Number
     {
-		//public abstract byte byteValue();
-		public abstract double doubleValue();
-		public abstract float floatValue();
-		public abstract int intValue();
-		public abstract long longValue();
-		//public abstract short shortValue();
-	}
+        //public abstract byte byteValue();
+        public abstract double doubleValue { get; }
+        public abstract float floatValue { get; }
+        public abstract int intValue { get; }
+
+        public abstract long longValue { get; }
+        //public abstract short shortValue();
+    }
+
+/// <summary>
+/// A base type for unsigned numbers.
+/// 
+/// @author Lukas Eder
+/// </summary>
+public abstract class UNumber : Number
+{
 
 	/// <summary>
-	/// A base type for unsigned numbers.
-	/// 
-	/// @author Lukas Eder
+	/// Generated UID
 	/// </summary>
-	public abstract class UNumber : Number
+	private const long serialVersionUID = -7666221938815339843L;
+
+    public static long SerialVersionUID => serialVersionUID;
+
+    /// <summary>
+    /// Converts this number to a hex string representation
+    /// </summary>
+    public abstract string ToHexString();
+
+	/// <summary>
+	/// Get this number as a <seealso cref="System.Numerics.BigInteger"/>. This is a convenience method for
+	/// calling <code>new BigInteger(toString())</code>
+	/// </summary>
+	public virtual BigInteger ToBigInteger()
 	{
-
-		/// <summary>
-		/// Generated UID
-		/// </summary>
-		private const long serialVersionUID = -7666221938815339843L;
-
-		/// <summary>
-		/// Converts this number to a hex string representation
-		/// </summary>
-		public abstract string toHexString();
-
-		/// <summary>
-		/// Get this number as a <seealso cref="System.Numerics.BigInteger"/>. This is a convenience method for
-		/// calling <code>new BigInteger(toString())</code>
-		/// </summary>
-		public virtual BigInteger toBigInteger()
-		{
-			return BigInteger.Parse(ToString());
-		}
+		return BigInteger.Parse(ToString());
 	}
 }

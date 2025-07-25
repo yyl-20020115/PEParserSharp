@@ -147,34 +147,27 @@ namespace PEParserSharp.Bytes
 			}
 		}
 
-		public override int intValue()
-		{
-			return this.value;
-		}
+        public override int intValue => this.value;
 
-		public override long longValue()
-		{
-			return this.value;
-		}
+        public override long longValue => this.value;
 
-		public override float floatValue()
-		{
-			return this.value;
-		}
+        public override float floatValue => this.value;
 
-		public override double doubleValue()
-		{
-			return this.value;
-		}
+        public override double doubleValue => this.value;
 
-		public override int GetHashCode()
+        public override int GetHashCode()
 		{
 			return Convert.ToInt32(this.value).GetHashCode();
 		}
 
 		public override bool Equals(object obj)
 		{
-			if (obj is UShort)
+            if (object.ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+
+            if (obj is UShort)
 			{
 				return this.value == ((UShort) obj).value;
 			}
@@ -187,7 +180,7 @@ namespace PEParserSharp.Bytes
 			return Convert.ToInt32(this.value).ToString();
 		}
 
-		public override string toHexString()
+		public override string ToHexString()
 		{
 			return this.value.ToString("x");
 		}

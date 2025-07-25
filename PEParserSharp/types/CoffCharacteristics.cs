@@ -15,10 +15,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace PEParserSharp.types
+namespace PEParserSharp.Types
 {
 	using UShort = PEParserSharp.Bytes.UShort;
-	using Characteristics = PEParserSharp.headers.flags.Characteristics;
+	using Characteristics = PEParserSharp.Headers.Flags.Characteristics;
 
 	public class CoffCharacteristics : ByteDefinition<Characteristics[]>
 	{
@@ -30,14 +30,11 @@ namespace PEParserSharp.types
 			this.value = value;
 		}
 
-		public override sealed Characteristics[] get()
-		{
-			return Characteristics.get(this.value);
-		}
+        public override sealed Characteristics[] get => Characteristics.get(this.value);
 
-		public override void format(StringBuilder b)
+        public override void Format(StringBuilder b)
 		{
-			Characteristics[] characteristics = get();
+			Characteristics[] characteristics = get;
 
 
 			b.Append(DescriptiveName).Append(":").Append(System.Environment.NewLine);

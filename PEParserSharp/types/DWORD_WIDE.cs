@@ -15,7 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace PEParserSharp.types
+namespace PEParserSharp.Types
 {
 
 	using ULong = PEParserSharp.Bytes.ULong;
@@ -30,14 +30,11 @@ namespace PEParserSharp.types
 			this.value = value;
 		}
 
-		public override sealed ULong get()
-		{
-			return this.value;
-		}
+        public override sealed ULong get => this.value;
 
-		public override void format(StringBuilder b)
+        public override void Format(StringBuilder b)
 		{
-			b.Append(DescriptiveName).Append(": ").Append(this.value).Append(" (0x").Append(this.value.toHexString()).Append(")").Append(System.Environment.NewLine);
+			b.Append(DescriptiveName).Append(": ").Append(this.value).Append(" (0x").Append(this.value.ToHexString()).Append(")").Append(System.Environment.NewLine);
 		}
 	}
 

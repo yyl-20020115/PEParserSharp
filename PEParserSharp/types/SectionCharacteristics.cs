@@ -15,10 +15,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace PEParserSharp.types
+namespace PEParserSharp.Types
 {
 	using UInteger = PEParserSharp.Bytes.UInteger;
-	using SectionCharacteristicsType = PEParserSharp.headers.flags.SectionCharacteristicsType;
+	using SectionCharacteristicsType = PEParserSharp.Headers.Flags.SectionCharacteristicsType;
 
 	public class SectionCharacteristics : ByteDefinition<SectionCharacteristicsType[]>
 	{
@@ -30,14 +30,11 @@ namespace PEParserSharp.types
 			this.value = value;
 		}
 
-		public override sealed SectionCharacteristicsType[] get()
-		{
-			return SectionCharacteristicsType.get(this.value);
-		}
+        public override sealed SectionCharacteristicsType[] get => SectionCharacteristicsType.get(this.value);
 
-		public override void format(StringBuilder b)
+        public override void Format(StringBuilder b)
 		{
-			SectionCharacteristicsType[] characteristics = get();
+			SectionCharacteristicsType[] characteristics = get;
 
 			b.Append(DescriptiveName).Append(": ").Append(System.Environment.NewLine);
 

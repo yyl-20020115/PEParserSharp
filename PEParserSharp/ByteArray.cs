@@ -16,113 +16,87 @@ using System.IO;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace PEParserSharp
+namespace PEParserSharp;
+
+using LittleEndian = Bytes.LittleEndian;
+using UByte = Bytes.UByte;
+using UInteger = Bytes.UInteger;
+using ULong = Bytes.ULong;
+using UShort = Bytes.UShort;
+
+
+public class ByteArray : MemoryStream
 {
-
-	using LittleEndian = PEParserSharp.Bytes.LittleEndian;
-	using UByte = PEParserSharp.Bytes.UByte;
-	using UInteger = PEParserSharp.Bytes.UInteger;
-	using ULong = PEParserSharp.Bytes.ULong;
-	using UShort = PEParserSharp.Bytes.UShort;
-
-
-	public class ByteArray : MemoryStream
+	public ByteArray(byte[] bytes) : base(bytes, 0, bytes.Length, false, true)
 	{
-		public ByteArray(byte[] bytes) : base(bytes, 0, bytes.Length, false, true)
-		{
-			this.buf = Array.ConvertAll(this.GetBuffer(), x => unchecked((sbyte)(x)));
-		}
+		this.buf = Array.ConvertAll(this.GetBuffer(), x => unchecked((sbyte)(x)));
+	}
 
-		public ByteArray(sbyte[] bytes) : base(Array.ConvertAll(bytes, x => unchecked((byte)(x))), 0, bytes.Length, false, true)
-		{
-			this.buf = bytes;
-		}
+	public ByteArray(sbyte[] bytes) : base(Array.ConvertAll(bytes, x => unchecked((byte)(x))), 0, bytes.Length, false, true)
+	{
+		this.buf = bytes;
+	}
 
-		public virtual string readAsciiString(int length)
-		{
-			// pos is incremented by the copybytes method
-			return (StringHelper.NewString(copyBytes(length), System.Text.Encoding.ASCII)).Trim();
-		}
+    public virtual string ReadAsciiString(int length) =>
+        // pos is incremented by the copybytes method
+        (StringHelper.NewString(CopyBytes(length), System.Text.Encoding.ASCII)).Trim();
 
-		private int pos
-		{
-			get => (int)this.Position;
-			set => this.Position = value;
-		}
+    private int Pos
+	{
+		get => (int)this.Position;
+		set => base.Position = value;
+	}
 
-		private sbyte[] buf;
+    private sbyte[] buf;
 
-		public virtual ULong readULong(int length)
-		{
-			ULong result = LittleEndian.ULong_.from(this.buf, this.pos, length);
-			this.pos += length;
-			return result;
-		}
+	public virtual ULong ReadULong(int length)
+	{
+		var result = LittleEndian.ULong.From(this.buf, this.Pos, length);
+		this.Pos += length;
+		return result;
+	}
 
-		public virtual UInteger readUInt(int length)
-		{
-			UInteger result = LittleEndian.UInt_.from(this.buf, this.pos, length);
-			this.pos += length;
-			return result;
-		}
+	public virtual UInteger ReadUInt(int length)
+	{
+		UInteger result = LittleEndian.UInt.From(this.buf, this.Pos, length);
+		this.Pos += length;
+		return result;
+	}
 
-		public virtual UShort readUShort(int length)
-		{
-			UShort result = LittleEndian.UShort_.from(this.buf, this.pos, length);
-			this.pos += length;
-			return result;
-		}
+	public virtual UShort ReadUShort(int length)
+	{
+		var result = LittleEndian.UShort.From(this.buf, this.Pos, length);
+		this.Pos += length;
+		return result;
+	}
 
-		public virtual UByte readUByte()
-		{
-			UByte b = UByte.valueOf(this.buf[this.pos]);
-			this.pos++;
-			return b;
-		}
+	public virtual UByte ReadUByte()
+	{
+		var b = UByte.ValueOf(this.buf[this.Pos]);
+		this.Pos++;
+		return b;
+	}
 
-		public virtual sbyte readRaw(int offset)
-		{
-			return this.buf[this.pos + offset];
-		}
+    public virtual sbyte ReadRaw(int offset) => this.buf[this.Pos + offset];
 
-		public virtual sbyte[] copyBytes(int length)
-		{
-			byte[] data = new byte[length];
-			base.Read(data, 0, length);
-			return Array.ConvertAll(data, x => unchecked((sbyte)(x)));
-		}
+    public virtual sbyte[] CopyBytes(int length)
+	{
+		var data = new byte[length];
+		base.Read(data, 0, length);
+		return Array.ConvertAll(data, x => unchecked((sbyte)(x)));
+	}
 
-		private int marker = 0;
+	private int marker = 0;
 
-		public virtual void mark()
-		{
-			marker = this.pos;
-		}
+    public virtual void Mark() => marker = this.Pos;
 
-		public virtual void seek(int position)
-		{
-			this.pos = position;
-		}
+    public virtual void Seek(int position) => this.Pos = position;
 
-		public virtual int position()
-		{
-			return this.pos;
-		}
+    public new virtual int Position => this.Pos;
 
-		public virtual int marked()
-		{
-			return this.marker;
-		}
+    public virtual int Marked => this.marker;
 
-        public void reset()
-        {
-			this.pos = marker;
-		}
+    public void Reset() => this.Pos = marker;
 
-        public void skip(int v)
-        {
-			this.pos += v;
-        }
-    }
-
+    public void Skip(int v) => this.Pos += v;
 }

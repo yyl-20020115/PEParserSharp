@@ -16,7 +16,7 @@ using System.Text;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace PEParserSharp.types
+namespace PEParserSharp.Types
 {
 
 	using UInteger = PEParserSharp.Bytes.UInteger;
@@ -31,15 +31,18 @@ namespace PEParserSharp.types
 			this.value = value;
 		}
 
-		public override sealed DateTime get()
-		{
-			long millis = this.value.longValue() * 1000;
-			return new DateTime(millis);
-		}
+        public override sealed DateTime get
+        {
+            get
+            {
+                long millis = this.value.longValue * 1000;
+                return new DateTime(millis);
+            }
+        }
 
-		public override void format(StringBuilder b)
+        public override void Format(StringBuilder b)
 		{
-			b.Append(DescriptiveName).Append(": ").Append(get().ToString()).Append(System.Environment.NewLine);
+			b.Append(DescriptiveName).Append(": ").Append(get.ToString()).Append(System.Environment.NewLine);
 		}
 	}
 

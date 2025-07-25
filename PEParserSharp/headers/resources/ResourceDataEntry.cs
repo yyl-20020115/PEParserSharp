@@ -15,58 +15,56 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace PEParserSharp.headers.resources
+namespace PEParserSharp.Headers.Resources;
+
+using ByteArray = PEParserSharp.ByteArray;
+using Header = PEParserSharp.Headers.Header;
+using SectionTableEntry = PEParserSharp.Headers.SectionTableEntry;
+using DWORD = PEParserSharp.Types.DWORD;
+
+public class ResourceDataEntry : Header
 {
-	using ByteArray = PEParserSharp.ByteArray;
-	using Header = PEParserSharp.headers.Header;
-	using SectionTableEntry = PEParserSharp.headers.SectionTableEntry;
-	using DWORD = PEParserSharp.types.DWORD;
 
-	public class ResourceDataEntry : Header
+	public readonly DWORD OFFSET_TO_DATA; // The address of a unit of resource data in the Resource Data area.
+	public readonly DWORD SIZE;
+	public readonly DWORD CODE_PAGE;
+	public readonly DWORD RESERVED;
+
+	private readonly SectionTableEntry section;
+
+	/// <param name="section"> - necessary to know this section for when computing the location of the resource data! </param>
+	public ResourceDataEntry(ByteArray bytes, SectionTableEntry section)
 	{
+		this.section = section;
 
-		public readonly DWORD OFFSET_TO_DATA; // The address of a unit of resource data in the Resource Data area.
-		public readonly DWORD SIZE;
-		public readonly DWORD CODE_PAGE;
-		public readonly DWORD RESERVED;
-
-		private readonly SectionTableEntry section;
-
-		/// <param name="section"> - necessary to know this section for when computing the location of the resource data! </param>
-		public ResourceDataEntry(ByteArray bytes, SectionTableEntry section)
-		{
-			this.section = section;
-
-			this.OFFSET_TO_DATA = new DWORD(bytes.readUInt(4), "offsetToData");
-			this.SIZE = new DWORD(bytes.readUInt(4), "Size");
-			this.CODE_PAGE = new DWORD(bytes.readUInt(4), "CodePage");
-			this.RESERVED = new DWORD(bytes.readUInt(4), "Reserved");
-		}
-
-		public virtual sbyte[] getData(ByteArray bytes)
-		{
-			// this is where to get the data from the ABSOLUTE position in the file!
-			long dataOffset = this.section.POINTER_TO_RAW_DATA.get().longValue() + this.OFFSET_TO_DATA.get().longValue() - this.section.VIRTUAL_ADDRESS.get().longValue();
-
-			if (dataOffset > int.MaxValue)
-			{
-				throw new Exception("Unable to set offset to more than 2gb!");
-			}
-
-			//String asHex = Integer.toHexString(dataOffset);
-			int saved = bytes.position();
-			bytes.seek((int) dataOffset);
-
-			long bytesToCopyLong = this.SIZE.get().longValue();
-			if (bytesToCopyLong > int.MaxValue)
-			{
-				throw new Exception("Unable to copy more than 2gb of bytes!");
-			}
-
-			sbyte[] copyBytes = bytes.copyBytes((int)bytesToCopyLong);
-			bytes.seek(saved);
-			return copyBytes;
-		}
+		this.OFFSET_TO_DATA = new DWORD(bytes.ReadUInt(4), "offsetToData");
+		this.SIZE = new DWORD(bytes.ReadUInt(4), "Size");
+		this.CODE_PAGE = new DWORD(bytes.ReadUInt(4), "CodePage");
+		this.RESERVED = new DWORD(bytes.ReadUInt(4), "Reserved");
 	}
 
+	public virtual sbyte[] getData(ByteArray bytes)
+	{
+		// this is where to get the data from the ABSOLUTE position in the file!
+		long dataOffset = this.section.POINTER_TO_RAW_DATA.get.longValue + this.OFFSET_TO_DATA.get.longValue - this.section.VIRTUAL_ADDRESS.get.longValue;
+
+		if (dataOffset > int.MaxValue)
+		{
+			throw new Exception("Unable to set offset to more than 2gb!");
+		}
+
+		//String asHex = Integer.toHexString(dataOffset);
+		int saved = bytes.Position;
+		bytes.Seek((int) dataOffset);
+
+		long bytesToCopyLong = this.SIZE.get.longValue;
+		if (bytesToCopyLong > int.MaxValue)
+		{
+			throw new Exception("Unable to copy more than 2gb of bytes!");
+		}
+
+		sbyte[] copyBytes = bytes.CopyBytes((int)bytesToCopyLong);
+		bytes.Seek(saved);
+		return copyBytes;
+	}
 }

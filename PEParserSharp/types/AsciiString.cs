@@ -15,31 +15,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace PEParserSharp.types
-{
-	using ByteArray = PEParserSharp.ByteArray;
+namespace PEParserSharp.Types;
 
-	public class AsciiString : ByteDefinition<string>
+using ByteArray = PEParserSharp.ByteArray;
+
+public class AsciiString : ByteDefinition<string>
+{
+
+	private readonly string value;
+
+	public AsciiString(ByteArray bytes, int byteLength, string descriptiveName) : base(descriptiveName)
 	{
 
-		private readonly string value;
-
-		public AsciiString(ByteArray bytes, int byteLength, string descriptiveName) : base(descriptiveName)
-		{
-
-			sbyte[] stringBytes = bytes.copyBytes(byteLength);
-			this.value = (StringHelper.NewString(stringBytes, System.Text.Encoding.ASCII)).Trim();
-		}
-
-		public override sealed string get()
-		{
-			return this.value;
-		}
-
-		public override void format(StringBuilder b)
-		{
-			b.Append(DescriptiveName).Append(": ").Append(this.value).Append(System.Environment.NewLine);
-		}
+		sbyte[] stringBytes = bytes.CopyBytes(byteLength);
+		this.value = (StringHelper.NewString(stringBytes, System.Text.Encoding.ASCII)).Trim();
 	}
 
+        public override sealed string get => this.value;
+
+        public override void Format(StringBuilder b)
+	{
+		b.Append(DescriptiveName).Append(": ").Append(this.value).Append(System.Environment.NewLine);
+	}
 }

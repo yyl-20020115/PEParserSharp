@@ -15,99 +15,97 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace PEParserSharp.misc
+namespace PEParserSharp.Misc;
+
+using UInteger = PEParserSharp.Bytes.UInteger;
+
+public sealed class ImageBaseType
 {
-	using UInteger = PEParserSharp.Bytes.UInteger;
+	public static readonly ImageBaseType IMAGE_BASE_DEFAULT = new ImageBaseType("IMAGE_BASE_DEFAULT", InnerEnum.IMAGE_BASE_DEFAULT, 0x10000000L, "DLL default");
+	public static readonly ImageBaseType IMAGE_BASE_WIN_CE = new ImageBaseType("IMAGE_BASE_WIN_CE", InnerEnum.IMAGE_BASE_WIN_CE, 0x00010000L, "default for Windows CE EXEs");
+	public static readonly ImageBaseType IMAGE_BASE_WIN = new ImageBaseType("IMAGE_BASE_WIN", InnerEnum.IMAGE_BASE_WIN, 0x00400000L, "default for Windows NT, 2000, XP, 95, 98 and Me");
 
-	public sealed class ImageBaseType
+	private static readonly List<ImageBaseType> valueList = new List<ImageBaseType>();
+
+	static ImageBaseType()
 	{
-		public static readonly ImageBaseType IMAGE_BASE_DEFAULT = new ImageBaseType("IMAGE_BASE_DEFAULT", InnerEnum.IMAGE_BASE_DEFAULT, 0x10000000L, "DLL default");
-		public static readonly ImageBaseType IMAGE_BASE_WIN_CE = new ImageBaseType("IMAGE_BASE_WIN_CE", InnerEnum.IMAGE_BASE_WIN_CE, 0x00010000L, "default for Windows CE EXEs");
-		public static readonly ImageBaseType IMAGE_BASE_WIN = new ImageBaseType("IMAGE_BASE_WIN", InnerEnum.IMAGE_BASE_WIN, 0x00400000L, "default for Windows NT, 2000, XP, 95, 98 and Me");
+		valueList.Add(IMAGE_BASE_DEFAULT);
+		valueList.Add(IMAGE_BASE_WIN_CE);
+		valueList.Add(IMAGE_BASE_WIN);
+	}
 
-		private static readonly List<ImageBaseType> valueList = new List<ImageBaseType>();
+	public enum InnerEnum
+	{
+		IMAGE_BASE_DEFAULT,
+		IMAGE_BASE_WIN_CE,
+		IMAGE_BASE_WIN
+	}
 
-		static ImageBaseType()
+	public readonly InnerEnum innerEnumValue;
+	private readonly string nameValue;
+	private readonly int ordinalValue;
+	private static int nextOrdinal = 0;
+
+	private readonly long value;
+	private readonly string description;
+
+	internal ImageBaseType(string name, InnerEnum innerEnum, long value, string description)
+	{
+		this.value = value;
+		this.description = description;
+
+		nameValue = name;
+		ordinalValue = nextOrdinal++;
+		innerEnumValue = innerEnum;
+	}
+
+	public static ImageBaseType get(PEParserSharp.Bytes.UInteger key)
+	{
+		long keyAsLong = key.longValue;
+
+		foreach (ImageBaseType c in values())
 		{
-			valueList.Add(IMAGE_BASE_DEFAULT);
-			valueList.Add(IMAGE_BASE_WIN_CE);
-			valueList.Add(IMAGE_BASE_WIN);
-		}
-
-		public enum InnerEnum
-		{
-			IMAGE_BASE_DEFAULT,
-			IMAGE_BASE_WIN_CE,
-			IMAGE_BASE_WIN
-		}
-
-		public readonly InnerEnum innerEnumValue;
-		private readonly string nameValue;
-		private readonly int ordinalValue;
-		private static int nextOrdinal = 0;
-
-		private readonly long value;
-		private readonly string description;
-
-		internal ImageBaseType(string name, InnerEnum innerEnum, long value, string description)
-		{
-			this.value = value;
-			this.description = description;
-
-			nameValue = name;
-			ordinalValue = nextOrdinal++;
-			innerEnumValue = innerEnum;
-		}
-
-		public static ImageBaseType get(PEParserSharp.Bytes.UInteger key)
-		{
-			long keyAsLong = key.longValue();
-
-			foreach (ImageBaseType c in values())
+			if (keyAsLong == c.value)
 			{
-				if (keyAsLong == c.value)
-				{
-					return c;
-				}
-			}
-
-			return null;
-		}
-
-		public string Description
-		{
-			get
-			{
-				return this.description;
+				return c;
 			}
 		}
 
-		public static ImageBaseType[] values()
-		{
-			return valueList.ToArray();
-		}
+		return null;
+	}
 
-		public int ordinal()
+	public string Description
+	{
+		get
 		{
-			return ordinalValue;
-		}
-
-		public override string ToString()
-		{
-			return nameValue;
-		}
-
-		public static ImageBaseType valueOf(string name)
-		{
-			foreach (ImageBaseType enumInstance in ImageBaseType.valueList)
-			{
-				if (enumInstance.nameValue == name)
-				{
-					return enumInstance;
-				}
-			}
-			throw new System.ArgumentException(name);
+			return this.description;
 		}
 	}
 
+	public static ImageBaseType[] values()
+	{
+		return valueList.ToArray();
+	}
+
+	public int ordinal()
+	{
+		return ordinalValue;
+	}
+
+	public override string ToString()
+	{
+		return nameValue;
+	}
+
+	public static ImageBaseType valueOf(string name)
+	{
+		foreach (ImageBaseType enumInstance in ImageBaseType.valueList)
+		{
+			if (enumInstance.nameValue == name)
+			{
+				return enumInstance;
+			}
+		}
+		throw new System.ArgumentException(name);
+	}
 }

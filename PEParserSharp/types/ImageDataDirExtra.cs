@@ -15,7 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace PEParserSharp.types
+namespace PEParserSharp.Types
 {
 	using UInteger = PEParserSharp.Bytes.UInteger;
 
@@ -32,26 +32,23 @@ namespace PEParserSharp.types
 		public ImageDataDirExtra(ByteArray bytes, string description) : base(description)
 		{
 
-			this.virtualAddress = new TInteger(bytes.readUInt(4), "Virtual Address");
-			this.size = new TInteger(bytes.readUInt(4), "Size");
+			this.virtualAddress = new TInteger(bytes.ReadUInt(4), "Virtual Address");
+			this.size = new TInteger(bytes.ReadUInt(4), "Size");
 		}
 
-		public override UInteger get()
-		{
-			return this.virtualAddress.get();
-		}
+        public override UInteger get => this.virtualAddress.get;
 
-		public virtual UInteger Size
+        public virtual UInteger Size
 		{
 			get
 			{
-				return this.size.get();
+				return this.size.get;
 			}
 		}
 
-		public override void format(StringBuilder b)
+		public override void Format(StringBuilder b)
 		{
-			b.Append(DescriptiveName).Append(": ").Append(System.Environment.NewLine).Append("\t").Append("address: ").Append(this.virtualAddress).Append(" (0x").Append(this.virtualAddress.get().toHexString()).Append(")").Append(System.Environment.NewLine).Append("\t").Append("size: ").Append(this.size.get()).Append(" (0x").Append(this.size.get().toHexString()).Append(")").Append(System.Environment.NewLine);
+			b.Append(DescriptiveName).Append(": ").Append(System.Environment.NewLine).Append("\t").Append("address: ").Append(this.virtualAddress).Append(" (0x").Append(this.virtualAddress.get.ToHexString()).Append(")").Append(System.Environment.NewLine).Append("\t").Append("size: ").Append(this.size.get).Append(" (0x").Append(this.size.get.ToHexString()).Append(")").Append(System.Environment.NewLine);
 		}
 	}
 

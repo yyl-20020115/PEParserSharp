@@ -15,11 +15,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace PEParserSharp.types
+namespace PEParserSharp.Types
 {
 	using UShort = PEParserSharp.Bytes.UShort;
 
-	using DllCharacteristicsType = PEParserSharp.headers.flags.DllCharacteristicsType;
+	using DllCharacteristicsType = PEParserSharp.Headers.Flags.DllCharacteristicsType;
 
 	public class DllCharacteristics : ByteDefinition<DllCharacteristicsType[]>
 	{
@@ -31,14 +31,11 @@ namespace PEParserSharp.types
 			this.value = value;
 		}
 
-		public override sealed DllCharacteristicsType[] get()
-		{
-			return DllCharacteristicsType.get(this.value);
-		}
+        public override sealed DllCharacteristicsType[] get => DllCharacteristicsType.get(this.value);
 
-		public override void format(StringBuilder b)
+        public override void Format(StringBuilder b)
 		{
-			DllCharacteristicsType[] characteristics = get();
+			DllCharacteristicsType[] characteristics = get;
 
 
 			b.Append(DescriptiveName).Append(":").Append(System.Environment.NewLine);

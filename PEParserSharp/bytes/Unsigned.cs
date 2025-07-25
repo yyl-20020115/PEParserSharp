@@ -61,7 +61,7 @@ namespace PEParserSharp.Bytes
 //ORIGINAL LINE: public static UByte ubyte(String value) throws NumberFormatException
 		public static UByte ubyte(string value)
 		{
-			return string.ReferenceEquals(value, null) ? null : UByte.valueOf(value);
+			return string.ReferenceEquals(value, null) ? null : UByte.ValueOf(value);
 		}
 
 		/// <summary>
@@ -71,7 +71,7 @@ namespace PEParserSharp.Bytes
 		/// <seealso cref="UByte.valueOf(byte)"/>
 		public static UByte ubyte(sbyte value)
 		{
-			return UByte.valueOf(value);
+			return UByte.ValueOf(value);
 		}
 
 		/// <summary>
@@ -79,12 +79,12 @@ namespace PEParserSharp.Bytes
 		/// </summary>
 		/// <exception cref="NumberFormatException"> If <code>value</code> is not in the range
 		///             of an <code>unsigned byte</code> </exception>
-		/// <seealso cref="UByte.valueOf(short)"/>
+		/// <seealso cref="UByte.ValueOf(short)"/>
 //JAVA TO C# CONVERTER WARNING: Method 'throws' clauses are not available in C#:
 //ORIGINAL LINE: public static UByte ubyte(short value) throws NumberFormatException
 		public static UByte ubyte(short value)
 		{
-			return UByte.valueOf(value);
+			return UByte.ValueOf(value);
 		}
 
 		/// <summary>
@@ -92,12 +92,12 @@ namespace PEParserSharp.Bytes
 		/// </summary>
 		/// <exception cref="NumberFormatException"> If <code>value</code> is not in the range
 		///             of an <code>unsigned byte</code> </exception>
-		/// <seealso cref="UByte.valueOf(short)"/>
+		/// <seealso cref="UByte.ValueOf(short)"/>
 //JAVA TO C# CONVERTER WARNING: Method 'throws' clauses are not available in C#:
 //ORIGINAL LINE: public static UByte ubyte(int value) throws NumberFormatException
 		public static UByte ubyte(int value)
 		{
-			return UByte.valueOf(value);
+			return UByte.ValueOf(value);
 		}
 
 		/// <summary>
@@ -105,12 +105,12 @@ namespace PEParserSharp.Bytes
 		/// </summary>
 		/// <exception cref="NumberFormatException"> If <code>value</code> is not in the range
 		///             of an <code>unsigned byte</code> </exception>
-		/// <seealso cref="UByte.valueOf(short)"/>
+		/// <seealso cref="UByte.ValueOf(short)"/>
 //JAVA TO C# CONVERTER WARNING: Method 'throws' clauses are not available in C#:
 //ORIGINAL LINE: public static UByte ubyte(long value) throws NumberFormatException
 		public static UByte ubyte(long value)
 		{
-			return UByte.valueOf(value);
+			return UByte.ValueOf(value);
 		}
 
 		/// <summary>
@@ -160,7 +160,7 @@ namespace PEParserSharp.Bytes
 //ORIGINAL LINE: public static UInteger uint(String value) throws NumberFormatException
 		public static UInteger @uint(string value)
 		{
-			return string.ReferenceEquals(value, null) ? null : UInteger.valueOf(value);
+			return string.ReferenceEquals(value, null) ? null : UInteger.ValueOf(value);
 		}
 
 		/// <summary>
@@ -168,10 +168,10 @@ namespace PEParserSharp.Bytes
 		/// <code>0xFFFFFFFF</code> i.e. <code>(int) -1</code> becomes
 		/// <code>(uint) 4294967295</code>
 		/// </summary>
-		/// <seealso cref="UInteger.valueOf(int)"/>
+		/// <seealso cref="UInteger.ValueOf(int)"/>
 		public static UInteger @uint(int value)
 		{
-			return UInteger.valueOf(value);
+			return UInteger.ValueOf(value);
 		}
 
 		/// <summary>
@@ -179,12 +179,12 @@ namespace PEParserSharp.Bytes
 		/// </summary>
 		/// <exception cref="NumberFormatException"> If <code>value</code> is not in the range
 		///             of an <code>unsigned int</code> </exception>
-		/// <seealso cref="UInteger.valueOf(long)"/>
+		/// <seealso cref="UInteger.ValueOf(long)"/>
 //JAVA TO C# CONVERTER WARNING: Method 'throws' clauses are not available in C#:
 //ORIGINAL LINE: public static UInteger uint(long value) throws NumberFormatException
 		public static UInteger @uint(long value)
 		{
-			return UInteger.valueOf(value);
+			return UInteger.ValueOf(value);
 		}
 
 		/// <summary>
@@ -197,7 +197,7 @@ namespace PEParserSharp.Bytes
 //ORIGINAL LINE: public static ULong ulong(String value) throws NumberFormatException
 		public static ULong @ulong(string value)
 		{
-			return string.ReferenceEquals(value, null) ? null : ULong.valueOf(value);
+			return string.ReferenceEquals(value, null) ? null : ULong.ValueOf(value);
 		}
 
 		/// <summary>
@@ -205,10 +205,10 @@ namespace PEParserSharp.Bytes
 		/// <code>0xFFFFFFFFFFFFFFFF</code> i.e. <code>(long) -1</code> becomes
 		/// <code>(uint) 18446744073709551615</code>
 		/// </summary>
-		/// <seealso cref="ULong.valueOf(long)"/>
+		/// <seealso cref="ULong.ValueOf(long)"/>
 		public static ULong @ulong(long value)
 		{
-			return ULong.valueOf(value);
+			return ULong.ValueOf(value);
 		}
 
 		/// <summary>
@@ -216,12 +216,12 @@ namespace PEParserSharp.Bytes
 		/// </summary>
 		/// <exception cref="NumberFormatException"> If <code>value</code> is not in the range
 		///             of an <code>unsigned long</code> </exception>
-		/// <seealso cref="ULong.valueOf(BigInteger)"/>
+		/// <seealso cref="ULong.ValueOf(BigInteger)"/>
 //JAVA TO C# CONVERTER WARNING: Method 'throws' clauses are not available in C#:
 //ORIGINAL LINE: public static ULong ulong(java.math.BigInteger value) throws NumberFormatException
 		public static ULong @ulong(BigInteger value)
 		{
-			return ULong.valueOf(value);
+			return ULong.ValueOf(value);
 		}
 
 		/// <summary>

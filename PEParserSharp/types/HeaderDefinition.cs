@@ -15,7 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace PEParserSharp.types
+namespace PEParserSharp.Types
 {
 
 
@@ -26,14 +26,11 @@ namespace PEParserSharp.types
 		{
 		}
 
-		public override string get()
-		{
-			return DescriptiveName;
-		}
+        public override string get => DescriptiveName;
 
-		public override void format(StringBuilder b)
+        public override void Format(StringBuilder b)
 		{
-			b.Append(System.Environment.NewLine).Append(get()).Append(System.Environment.NewLine).Append(".......................").Append(System.Environment.NewLine).Append(System.Environment.NewLine);
+			b.Append(System.Environment.NewLine).Append(get).Append(System.Environment.NewLine).Append(".......................").Append(System.Environment.NewLine).Append(System.Environment.NewLine);
 		}
 	}
 

@@ -15,10 +15,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace PEParserSharp.types
+namespace PEParserSharp.Types
 {
 	using UShort = PEParserSharp.Bytes.UShort;
-	using SubsystemType = PEParserSharp.misc.SubsystemType;
+	using SubsystemType = PEParserSharp.Misc.SubsystemType;
 
 	public class Subsystem : ByteDefinition<SubsystemType>
 	{
@@ -30,14 +30,11 @@ namespace PEParserSharp.types
 			this.value = value;
 		}
 
-		public override sealed SubsystemType get()
-		{
-			return SubsystemType.get(this.value);
-		}
+        public override sealed SubsystemType get => SubsystemType.get(this.value);
 
-		public override void format(StringBuilder b)
+        public override void Format(StringBuilder b)
 		{
-			SubsystemType s = get();
+			SubsystemType s = get;
 
 			if (s != null)
 			{

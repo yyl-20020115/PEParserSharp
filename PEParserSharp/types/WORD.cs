@@ -15,32 +15,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace PEParserSharp.types
+namespace PEParserSharp.Types;
+
+using UShort = Bytes.UShort;
+
+public class WORD(UShort value, string descriptiveName) : ByteDefinition<UShort>(descriptiveName)
 {
 
-	using UShort = PEParserSharp.Bytes.UShort;
+	private readonly UShort value = value;
 
+    public override sealed UShort get => this.value;
 
-	public class WORD : ByteDefinition<UShort>
-	{
-
-		private readonly UShort value;
-
-		public WORD(UShort value, string descriptiveName) : base(descriptiveName)
-		{
-
-			this.value = value;
-		}
-
-		public override sealed UShort get()
-		{
-			return this.value;
-		}
-
-		public override sealed void format(StringBuilder b)
-		{
-			b.Append(DescriptiveName).Append(": ").Append(this.value).Append(" (0x").Append(this.value.toHexString()).Append(")").Append(System.Environment.NewLine);
-		}
-	}
-
+    public sealed override void Format(StringBuilder b) => b.Append(DescriptiveName).Append(": ").Append(this.value).Append(" (0x").Append(this.value.ToHexString()).Append(")").Append(System.Environment.NewLine);
 }

@@ -15,10 +15,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace PEParserSharp.types
+namespace PEParserSharp.Types
 {
 	using UShort = PEParserSharp.Bytes.UShort;
-	using MachineTypeType = PEParserSharp.misc.MachineTypeType;
+	using MachineTypeType = PEParserSharp.Misc.MachineTypeType;
 
 	public class MachineType : ByteDefinition<MachineTypeType>
 	{
@@ -31,14 +31,11 @@ namespace PEParserSharp.types
 			this.value = value;
 		}
 
-		public override sealed MachineTypeType get()
-		{
-			return MachineTypeType.get(this.value);
-		}
+        public override sealed MachineTypeType get => MachineTypeType.get(this.value);
 
-		public override void format(StringBuilder b)
+        public override void Format(StringBuilder b)
 		{
-			b.Append(DescriptiveName).Append(": ").Append(get().Description).Append(System.Environment.NewLine);
+			b.Append(DescriptiveName).Append(": ").Append(get.Description).Append(System.Environment.NewLine);
 		}
 	}
 

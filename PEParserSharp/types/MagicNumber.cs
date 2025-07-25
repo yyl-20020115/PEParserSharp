@@ -15,10 +15,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace PEParserSharp.types
+namespace PEParserSharp.Types
 {
 	using UShort = PEParserSharp.Bytes.UShort;
-	using MagicNumberType = PEParserSharp.misc.MagicNumberType;
+	using MagicNumberType = PEParserSharp.Misc.MagicNumberType;
 
 	public class MagicNumber : ByteDefinition<MagicNumberType>
 	{
@@ -30,14 +30,11 @@ namespace PEParserSharp.types
 			this.value = value;
 		}
 
-		public override sealed MagicNumberType get()
-		{
-			return MagicNumberType.get(this.value);
-		}
+        public override sealed MagicNumberType get => MagicNumberType.get(this.value);
 
-		public override sealed void format(StringBuilder b)
+        public override sealed void Format(StringBuilder b)
 		{
-			b.Append(DescriptiveName).Append(": ").Append(this.value).Append(" --> ").Append(get().Description).Append(System.Environment.NewLine);
+			b.Append(DescriptiveName).Append(": ").Append(this.value).Append(" --> ").Append(get.Description).Append(System.Environment.NewLine);
 		}
 	}
 

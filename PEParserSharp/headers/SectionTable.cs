@@ -15,33 +15,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace PEParserSharp.headers
+namespace PEParserSharp.Headers;
+
+
+using ByteArray = PEParserSharp.ByteArray;
+
+public class SectionTable : Header
 {
 
-	using ByteArray = PEParserSharp.ByteArray;
+	// more info here: http://msdn.microsoft.com/en-us/library/ms809762.aspx
 
-	public class SectionTable : Header
+	public IList<SectionTableEntry> sections;
+
+	public SectionTable(ByteArray bytes, int numberOfEntries)
 	{
 
-		// more info here: http://msdn.microsoft.com/en-us/library/ms809762.aspx
+		this.sections = new List<SectionTableEntry>(numberOfEntries);
 
-		public IList<SectionTableEntry> sections;
-
-		public SectionTable(ByteArray bytes, int numberOfEntries)
+		bytes.Mark();
+		for (int i = 0;i < numberOfEntries;i++)
 		{
-
-			this.sections = new List<SectionTableEntry>(numberOfEntries);
-
-			bytes.mark();
-			for (int i = 0;i < numberOfEntries;i++)
-			{
-				int offset = i * SectionTableEntry.ENTRY_SIZE; // 40 bytes per table entry, no spacing between them
-				bytes.skip(offset);
-				SectionTableEntry sectionTableEntry = new SectionTableEntry(bytes, i + 1, offset, SectionTableEntry.ENTRY_SIZE);
-				this.sections.Add(sectionTableEntry);
-				bytes.reset();
-			}
+			int offset = i * SectionTableEntry.ENTRY_SIZE; // 40 bytes per table entry, no spacing between them
+			bytes.Skip(offset);
+			SectionTableEntry sectionTableEntry = new SectionTableEntry(bytes, i + 1, offset, SectionTableEntry.ENTRY_SIZE);
+			this.sections.Add(sectionTableEntry);
+			bytes.Reset();
 		}
 	}
-
 }

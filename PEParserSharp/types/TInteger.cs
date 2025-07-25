@@ -15,7 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace PEParserSharp.types
+namespace PEParserSharp.Types
 {
 
 	using UInteger = PEParserSharp.Bytes.UInteger;
@@ -30,14 +30,11 @@ namespace PEParserSharp.types
 			this.value = value;
 		}
 
-		public override sealed UInteger get()
-		{
-			return this.value;
-		}
+        public override sealed UInteger get => this.value;
 
-		public override void format(StringBuilder b)
+        public override void Format(StringBuilder b)
 		{
-			b.Append(DescriptiveName).Append(": ").Append(this.value).Append(" (0x").Append(System.BitConverter.ToString(this.value.toBigInteger().ToByteArray()).Replace("-", "")).Append(")").Append(System.Environment.NewLine);
+			b.Append(DescriptiveName).Append(": ").Append(this.value).Append(" (0x").Append(System.BitConverter.ToString(this.value.ToBigInteger().ToByteArray()).Replace("-", "")).Append(")").Append(System.Environment.NewLine);
 		}
 	}
 

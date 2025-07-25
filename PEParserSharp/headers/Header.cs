@@ -15,26 +15,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace PEParserSharp.headers
+namespace PEParserSharp.Headers;
+
+
+using PEParserSharp.Types;
+
+public class Header
 {
-
-	using PEParserSharp.types;
-
-	public class Header
-	{
 //JAVA TO C# CONVERTER WARNING: Java wildcard generics have no direct equivalent in C#:
 //ORIGINAL LINE: public java.util.List<PEParserSharp.types.ByteDefinition<?>> headers = new java.util.ArrayList<PEParserSharp.types.ByteDefinition<?>>(0);
-		public IList<ByteDefinition> headers = new List<ByteDefinition>(0);
+	public IList<ByteDefinition> headers = new List<ByteDefinition>(0);
 
-		public Header()
-		{
-		}
-
-		protected internal virtual T h<T>(T @object) where T: ByteDefinition
-		{
-			this.headers.Add(@object);
-			return @object;
-		}
+	public Header()
+	{
 	}
 
+	protected internal virtual T h<T>(T @object) where T: ByteDefinition
+	{
+		this.headers.Add(@object);
+		return @object;
+	}
 }

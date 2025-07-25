@@ -16,12 +16,12 @@ using System.Text;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace PEParserSharp.types
+namespace PEParserSharp.Types
 {
 
 	using UInteger = PEParserSharp.Bytes.UInteger;
 	using ByteArray = PEParserSharp.ByteArray;
-	using ResourceTypes = PEParserSharp.misc.ResourceTypes;
+	using ResourceTypes = PEParserSharp.Misc.ResourceTypes;
 
 	public class ResourceDirName : ByteDefinition<string>
 	{
@@ -49,14 +49,14 @@ namespace PEParserSharp.types
 			* Yes, even PE files intended for non-UNICODE Win32 implementations use UNICODE here. To convert the UNICODE
 			* string to an ANSI string, use the WideCharToMultiByte function.
 			*/
-			long valueInt = intValue.longValue();
+			long valueInt = intValue.longValue;
 
 			// now process the name
 			bool isString = 0 != (valueInt & NAME_IS_STRING_MASK);
 
 			if (isString)
 			{
-				int savedPosition = bytes.position();
+				int savedPosition = bytes.Position;
 				//
 				// High bit is 1
 				//
@@ -68,18 +68,18 @@ namespace PEParserSharp.types
 				}
 
 				// offset from the start of the resource data to the name string of this particular resource.
-				bytes.seek(bytes.marked() + (int) offset);
-				int length = bytes.readUShort(2).intValue();
+				bytes.Seek(bytes.Marked + (int) offset);
+				int length = bytes.ReadUShort(2).intValue;
 
 				sbyte[] buff = new sbyte[length * 2]; // UTF-8 chars are 16 bits = 2
 				// bytes
 				for (int i = 0; i < buff.Length; i++)
 				{
-					buff[i] = bytes.readUByte().byteValue();
+					buff[i] = bytes.ReadUByte().ByteValue;
 				}
 
 				// go back
-				bytes.seek(savedPosition);
+				bytes.Seek(savedPosition);
 				this.value = (StringHelper.NewString(buff, System.Text.Encoding.Unicode)).Trim();
 			}
 			else
@@ -97,24 +97,21 @@ namespace PEParserSharp.types
 						this.value = ResourceTypes.get(intValue).DetailedInfo;
 						break;
 					case 2: // NAME
-						this.value = intValue.toHexString();
+						this.value = intValue.ToHexString();
 						break;
 					case 3: // Language ID
-						this.value = intValue.toHexString();
+						this.value = intValue.ToHexString();
 						break;
 					default:
-						this.value = intValue.toHexString();
+						this.value = intValue.ToHexString();
 						break;
 				}
 			}
 		}
 
-		public override sealed string get()
-		{
-			return this.value;
-		}
+        public override sealed string get => this.value;
 
-		public override void format(StringBuilder b)
+        public override void Format(StringBuilder b)
 		{
 			b.Append(DescriptiveName).Append(": ");
 			switch (this.level)
