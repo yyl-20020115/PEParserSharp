@@ -27,14 +27,14 @@ namespace PEParserSharp.Bytes;
 /// <p/>
 /// Network byte order IS big endian, as is Java.
 /// </summary>
-public class LittleEndian
+public static class LittleEndian
 {
     // the following are ALL in Little-Endian (byte[0] is LEAST significant)
 
     /// <summary>
     /// CHAR to and from bytes
     /// </summary>
-    public sealed class Char
+    public static class Char
     {
         //JAVA TO C# CONVERTER TODO TASK: Most Java annotations will not have direct .NET equivalent attributes:
         //ORIGINAL LINE: @SuppressWarnings("fallthrough") public static char from(final byte[] bytes, final int offset, final int byteNum)
@@ -95,17 +95,13 @@ public class LittleEndian
             bytes[1] = (sbyte)(x >> 8);
             bytes[0] = (sbyte)(x >> 0);
         }
-
-        internal Char()
-        {
-        }
     }
 
 
     /// <summary>
     /// UNSIGNED CHAR to and from bytes
     /// </summary>
-    public sealed class UChar
+    public static class UChar
     {
         //JAVA TO C# CONVERTER TODO TASK: Most Java annotations will not have direct .NET equivalent attributes:
         //ORIGINAL LINE: @SuppressWarnings("fallthrough") public static UShort from(final byte[] bytes, final int offset, final int bytenum)
@@ -123,7 +119,7 @@ public class LittleEndian
                     break;
             }
 
-            return Bytes.UShort.valueOf(number);
+            return Bytes.UShort.ValueOf(number);
         }
 
         //JAVA TO C# CONVERTER TODO TASK: Most Java annotations will not have direct .NET equivalent attributes:
@@ -144,10 +140,10 @@ public class LittleEndian
                     break;
             }
 
-            return Bytes.UShort.valueOf(number);
+            return Bytes.UShort.ValueOf(number);
         }
 
-        public static Bytes.UShort From(in sbyte b0, in sbyte b1) => Bytes.UShort.valueOf((short)((b1 & 0xFF) << 8) | ((b0 & 0xFF) << 0));
+        public static Bytes.UShort From(in sbyte b0, in sbyte b1) => Bytes.UShort.ValueOf((short)((b1 & 0xFF) << 8) | ((b0 & 0xFF) << 0));
 
         //JAVA TO C# CONVERTER WARNING: Method 'throws' clauses are not available in C#:
         //ORIGINAL LINE: public static UShort from(final java.io.InputStream inputStream) throws java.io.IOException
@@ -155,14 +151,14 @@ public class LittleEndian
 
         public static sbyte[] ToBytes(Bytes.UShort x)
         {
-            int num = x.intValue;
+            int num = x.IntValue;
 
             return [(sbyte)(num & 0x00FF >> 0), (sbyte)((num & 0xFF00) >> 8)];
         }
 
         public static void ToBytes(in Bytes.UShort x, in sbyte[] bytes, in int offset)
         {
-            int num = x.intValue;
+            int num = x.IntValue;
 
             bytes[offset + 1] = (sbyte)((num & 0xFF00) >> 8);
             bytes[offset + 0] = (sbyte)(num & 0x00FF >> 0);
@@ -170,21 +166,17 @@ public class LittleEndian
 
         public static void ToBytes(in Bytes.UShort x, in sbyte[] bytes)
         {
-            int num = x.intValue;
+            int num = x.IntValue;
 
             bytes[1] = (sbyte)((num & 0xFF00) >> 8);
             bytes[0] = (sbyte)(num & 0x00FF >> 0);
-        }
-
-        internal UChar()
-        {
         }
     }
 
     /// <summary>
     /// SHORT to and from bytes
     /// </summary>
-    public sealed class Short
+    public static class Short
     {
         //JAVA TO C# CONVERTER TODO TASK: Most Java annotations will not have direct .NET equivalent attributes:
         //ORIGINAL LINE: @SuppressWarnings("fallthrough") public static short from(final byte[] bytes, final int offset, final int bytenum)
@@ -226,37 +218,24 @@ public class LittleEndian
             return number;
         }
 
-        public static short from(in sbyte b0, in sbyte b1)
-        {
-            return (short)((b1 & 0xFF) << 8 | (b0 & 0xFF) << 0);
-        }
+        public static short From(in sbyte b0, in sbyte b1) => (short)(((b1 & 0xFF) << 8) | ((b0 & 0xFF) << 0));
 
         //JAVA TO C# CONVERTER WARNING: Method 'throws' clauses are not available in C#:
         //ORIGINAL LINE: public static short from(final java.io.InputStream inputStream) throws java.io.IOException
-        public static short from(in Stream inputStream)
-        {
-            return from((sbyte)inputStream.ReadByte(), (sbyte)inputStream.ReadByte());
-        }
+        public static short From(in Stream inputStream) => From((sbyte)inputStream.ReadByte(), (sbyte)inputStream.ReadByte());
 
-        public static sbyte[] toBytes(in short x)
-        {
-            return new sbyte[] { (sbyte)(x >> 0), (sbyte)(x >> 8) };
-        }
+        public static sbyte[] ToBytes(in short x) => [(sbyte)(x >> 0), (sbyte)(x >> 8)];
 
-        public static void toBytes(in short x, in sbyte[] bytes, in int offset)
+        public static void ToBytes(in short x, in sbyte[] bytes, in int offset)
         {
             bytes[offset + 1] = (sbyte)(x >> 8);
             bytes[offset + 0] = (sbyte)(x >> 0);
         }
 
-        public static void toBytes(in short x, in sbyte[] bytes)
+        public static void ToBytes(in short x, in sbyte[] bytes)
         {
             bytes[1] = (sbyte)(x >> 8);
             bytes[0] = (sbyte)(x >> 0);
-        }
-
-        internal Short()
-        {
         }
     }
 
@@ -264,7 +243,7 @@ public class LittleEndian
     /// <summary>
     /// UNSIGNED SHORT to and from bytes
     /// </summary>
-    public sealed class UShort
+    public static class UShort
     {
         //JAVA TO C# CONVERTER TODO TASK: Most Java annotations will not have direct .NET equivalent attributes:
         //ORIGINAL LINE: @SuppressWarnings("fallthrough") public static UShort from(final byte[] bytes, final int offset, final int bytenum)
@@ -282,7 +261,7 @@ public class LittleEndian
                     break;
             }
 
-            return Bytes.UShort.valueOf(number);
+            return Bytes.UShort.ValueOf(number);
         }
 
         //JAVA TO C# CONVERTER TODO TASK: Most Java annotations will not have direct .NET equivalent attributes:
@@ -303,30 +282,25 @@ public class LittleEndian
                     break;
             }
 
-            return Bytes.UShort.valueOf(number);
+            return Bytes.UShort.ValueOf(number);
         }
 
         public static Bytes.UShort From(in sbyte b0, in sbyte b1)
-        {
-            return Bytes.UShort.valueOf((short)((b1 & 0xFF) << 8 | (b0 & 0xFF) << 0));
-        }
+        => Bytes.UShort.ValueOf((short)((b1 & 0xFF) << 8 | (b0 & 0xFF) << 0));
 
         //JAVA TO C# CONVERTER WARNING: Method 'throws' clauses are not available in C#:
         //ORIGINAL LINE: public static UShort from(final java.io.InputStream inputStream) throws java.io.IOException
-        public static Bytes.UShort From(in Stream inputStream)
-        {
-            return From((sbyte)inputStream.ReadByte(), (sbyte)inputStream.ReadByte());
-        }
+        public static Bytes.UShort From(in Stream inputStream) => From((sbyte)inputStream.ReadByte(), (sbyte)inputStream.ReadByte());
         public static sbyte[] ToBytes(in Bytes.UShort x)
         {
-            int num = x.intValue;
+            int num = x.IntValue;
 
             return new sbyte[] { (sbyte)(num & 0x00FF >> 0), (sbyte)((num & 0xFF00) >> 8) };
         }
 
         public static void ToBytes(in Bytes.UShort x, in sbyte[] bytes, in int offset)
         {
-            int num = x.intValue;
+            int num = x.IntValue;
 
             bytes[offset + 1] = (sbyte)((num & 0xFF00) >> 8);
             bytes[offset + 0] = (sbyte)(num & 0x00FF >> 0);
@@ -334,21 +308,18 @@ public class LittleEndian
 
         public static void ToBytes(in Bytes.UShort x, in sbyte[] bytes)
         {
-            int num = x.intValue;
+            int num = x.IntValue;
 
             bytes[1] = (sbyte)((num & 0xFF00) >> 8);
             bytes[0] = (sbyte)(num & 0x00FF >> 0);
         }
 
-        internal UShort()
-        {
-        }
     }
 
     /// <summary>
     /// INT to and from bytes
     /// </summary>
-    public sealed class Int
+    public static class Int
     {
         //JAVA TO C# CONVERTER TODO TASK: Most Java annotations will not have direct .NET equivalent attributes:
         //ORIGINAL LINE: @SuppressWarnings("fallthrough") public static int from(final byte[] bytes, final int offset, final int bytenum)
@@ -402,22 +373,13 @@ public class LittleEndian
             return number;
         }
 
-        public static int From(in sbyte b0, in sbyte b1, in sbyte b2, in sbyte b3)
-        {
-            return (b3 & 0xFF) << 24 | (b2 & 0xFF) << 16 | (b1 & 0xFF) << 8 | (b0 & 0xFF) << 0;
-        }
+        public static int From(in sbyte b0, in sbyte b1, in sbyte b2, in sbyte b3) => ((b3 & 0xFF) << 24) | (b2 & 0xFF) << 16 | (b1 & 0xFF) << 8 | (b0 & 0xFF) << 0;
 
         //JAVA TO C# CONVERTER WARNING: Method 'throws' clauses are not available in C#:
         //ORIGINAL LINE: public static int from(final java.io.InputStream inputStream) throws java.io.IOException
-        public static int from(in Stream inputStream)
-        {
-            return From((sbyte)inputStream.ReadByte(), (sbyte)inputStream.ReadByte(), (sbyte)inputStream.ReadByte(), (sbyte)inputStream.ReadByte());
-        }
+        public static int From(in Stream inputStream) => From((sbyte)inputStream.ReadByte(), (sbyte)inputStream.ReadByte(), (sbyte)inputStream.ReadByte(), (sbyte)inputStream.ReadByte());
 
-        public static sbyte[] ToBytes(in int x)
-        {
-            return new sbyte[] { (sbyte)(x >> 0), (sbyte)(x >> 8), (sbyte)(x >> 16), (sbyte)(x >> 24) };
-        }
+        public static sbyte[] ToBytes(in int x) => [(sbyte)(x >> 0), (sbyte)(x >> 8), (sbyte)(x >> 16), (sbyte)(x >> 24)];
 
         public static void ToBytes(in int x, in sbyte[] bytes, in int offset)
         {
@@ -435,15 +397,12 @@ public class LittleEndian
             bytes[0] = (sbyte)(x >> 0);
         }
 
-        internal Int()
-        {
-        }
     }
 
     /// <summary>
     /// UNSIGNED INT to and from bytes
     /// </summary>
-    public sealed class UInt
+    public static class UInt
     {
         //JAVA TO C# CONVERTER TODO TASK: Most Java annotations will not have direct .NET equivalent attributes:
         //ORIGINAL LINE: @SuppressWarnings("fallthrough") public static UInteger from(final byte[] bytes, final int offset, final int bytenum)
@@ -507,20 +466,18 @@ public class LittleEndian
         //JAVA TO C# CONVERTER WARNING: Method 'throws' clauses are not available in C#:
         //ORIGINAL LINE: public static UInteger from(final java.io.InputStream inputStream) throws java.io.IOException
         public static UInteger From(in Stream inputStream)
-        {
-            return From((sbyte)inputStream.ReadByte(), (sbyte)inputStream.ReadByte(), (sbyte)inputStream.ReadByte(), (sbyte)inputStream.ReadByte());
-        }
+        => From((sbyte)inputStream.ReadByte(), (sbyte)inputStream.ReadByte(), (sbyte)inputStream.ReadByte(), (sbyte)inputStream.ReadByte());
 
         public static sbyte[] ToBytes(in UInteger x)
         {
-            long num = x.longValue;
+            long num = x.LongValue;
 
-            return new sbyte[] { (sbyte)(num & 0x000000FFL >> 0), (sbyte)((num & 0x0000FF00L) >> 8), (sbyte)((num & 0x00FF0000L) >> 16), (sbyte)((num & 0xFF000000L) >> 24) };
+            return [(sbyte)(num & 0x000000FFL >> 0), (sbyte)((num & 0x0000FF00L) >> 8), (sbyte)((num & 0x00FF0000L) >> 16), (sbyte)((num & 0xFF000000L) >> 24)];
         }
 
         public static void ToBytes(in UInteger x, in sbyte[] bytes, in int offset)
         {
-            long num = x.longValue;
+            long num = x.LongValue;
 
             bytes[offset + 3] = (sbyte)((num & 0xFF000000L) >> 24);
             bytes[offset + 2] = (sbyte)((num & 0x00FF0000L) >> 16);
@@ -531,20 +488,16 @@ public class LittleEndian
 
         public static void ToBytes(in UInteger x, in sbyte[] bytes)
         {
-            long num = x.longValue;
+            long num = x.LongValue;
 
             bytes[3] = (sbyte)((num & 0xFF000000L) >> 24);
             bytes[2] = (sbyte)((num & 0x00FF0000L) >> 16);
             bytes[1] = (sbyte)((num & 0x0000FF00L) >> 8);
             bytes[0] = (sbyte)(num & 0x000000FFL >> 0);
         }
-
-        internal UInt()
-        {
-        }
     }
 
-    public sealed class Long
+    public static class Long
     {
         //JAVA TO C# CONVERTER TODO TASK: Most Java annotations will not have direct .NET equivalent attributes:
         //ORIGINAL LINE: @SuppressWarnings("fallthrough") public static long from(final byte[] bytes, final int offset, final int bytenum)
@@ -623,21 +576,15 @@ public class LittleEndian
         }
 
         public static long From(in sbyte b0, in sbyte b1, in sbyte b2, in sbyte b3, in sbyte b4, in sbyte b5, in sbyte b6, in sbyte b7)
-        {
-            return (long)(b7 & 0xFF) << 56 | (long)(b6 & 0xFF) << 48 | (long)(b5 & 0xFF) << 40 | (long)(b4 & 0xFF) << 32 | (long)(b3 & 0xFF) << 24 | (long)(b2 & 0xFF) << 16 | (long)(b1 & 0xFF) << 8 | (long)(b0 & 0xFF) << 0;
-        }
+        => (long)(b7 & 0xFF) << 56 | (long)(b6 & 0xFF) << 48 | (long)(b5 & 0xFF) << 40 | (long)(b4 & 0xFF) << 32 | (long)(b3 & 0xFF) << 24 | (long)(b2 & 0xFF) << 16 | (long)(b1 & 0xFF) << 8 | (long)(b0 & 0xFF) << 0;
 
         //JAVA TO C# CONVERTER WARNING: Method 'throws' clauses are not available in C#:
         //ORIGINAL LINE: public static long from(final java.io.InputStream inputStream) throws java.io.IOException
         public static long From(in Stream inputStream)
-        {
-            return From((sbyte)inputStream.ReadByte(), (sbyte)inputStream.ReadByte(), (sbyte)inputStream.ReadByte(), (sbyte)inputStream.ReadByte(), (sbyte)inputStream.ReadByte(), (sbyte)inputStream.ReadByte(), (sbyte)inputStream.ReadByte(), (sbyte)inputStream.ReadByte());
-        }
+        => From((sbyte)inputStream.ReadByte(), (sbyte)inputStream.ReadByte(), (sbyte)inputStream.ReadByte(), (sbyte)inputStream.ReadByte(), (sbyte)inputStream.ReadByte(), (sbyte)inputStream.ReadByte(), (sbyte)inputStream.ReadByte(), (sbyte)inputStream.ReadByte());
 
         public static sbyte[] ToBytes(in long x)
-        {
-            return new sbyte[] { (sbyte)(x >> 0), (sbyte)(x >> 8), (sbyte)(x >> 16), (sbyte)(x >> 24), (sbyte)(x >> 32), (sbyte)(x >> 40), (sbyte)(x >> 48), (sbyte)(x >> 56) };
-        }
+        => new sbyte[] { (sbyte)(x >> 0), (sbyte)(x >> 8), (sbyte)(x >> 16), (sbyte)(x >> 24), (sbyte)(x >> 32), (sbyte)(x >> 40), (sbyte)(x >> 48), (sbyte)(x >> 56) };
 
         public static void ToBytes(in long x, in sbyte[] bytes, in int offset)
         {
@@ -663,15 +610,12 @@ public class LittleEndian
             bytes[0] = (sbyte)(x >> 0);
         }
 
-        internal Long()
-        {
-        }
     }
 
     /// <summary>
     /// UNSIGNED LONG to and from bytes
     /// </summary>
-    public sealed class ULong
+    public static class ULong
     {
         //JAVA TO C# CONVERTER TODO TASK: Most Java annotations will not have direct .NET equivalent attributes:
         //ORIGINAL LINE: @SuppressWarnings("fallthrough") public static ULong from(final byte[] bytes, final int offset, final int bytenum)
@@ -718,7 +662,7 @@ public class LittleEndian
 
         public static Bytes.ULong From(in sbyte b0, in sbyte b1, in sbyte b2, in sbyte b3, in sbyte b4, in sbyte b5, in sbyte b6, in sbyte b7)
         {
-            sbyte[] bytes = new sbyte[] { b7, b6, b5, b4, b3, b2, b1, b0 };
+            sbyte[] bytes = [b7, b6, b5, b4, b3, b2, b1, b0];
             BigInteger @ulong = new BigInteger(Array.ConvertAll(bytes, x => unchecked((byte)(x))));
             return Bytes.ULong.ValueOf(@ulong);
         }
@@ -726,9 +670,7 @@ public class LittleEndian
         //JAVA TO C# CONVERTER WARNING: Method 'throws' clauses are not available in C#:
         //ORIGINAL LINE: public static ULong from(final java.io.InputStream inputStream) throws java.io.IOException
         public static Bytes.ULong From(in Stream inputStream)
-        {
-            return From((sbyte)inputStream.ReadByte(), (sbyte)inputStream.ReadByte(), (sbyte)inputStream.ReadByte(), (sbyte)inputStream.ReadByte(), (sbyte)inputStream.ReadByte(), (sbyte)inputStream.ReadByte(), (sbyte)inputStream.ReadByte(), (sbyte)inputStream.ReadByte());
-        }
+        => From((sbyte)inputStream.ReadByte(), (sbyte)inputStream.ReadByte(), (sbyte)inputStream.ReadByte(), (sbyte)inputStream.ReadByte(), (sbyte)inputStream.ReadByte(), (sbyte)inputStream.ReadByte(), (sbyte)inputStream.ReadByte(), (sbyte)inputStream.ReadByte());
 
         public static sbyte[] ToBytes(in Bytes.ULong x)
         {
@@ -784,8 +726,5 @@ public class LittleEndian
             }
         }
 
-        internal ULong()
-        {
-        }
     }
 }

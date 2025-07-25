@@ -220,13 +220,13 @@ public sealed class UByte : UNumber, IComparable<UByte>
     //ORIGINAL LINE: private Object readResolve() throws java.io.ObjectStreamException
     private object ReadResolve() => ValueOf(this.value);
 
-    public override int intValue => this.value;
+    public override int IntValue => this.value;
 
-    public override long longValue => this.value;
+    public override long LongValue => this.value;
 
-    public override float floatValue => this.value;
+    public override float FloatValue => this.value;
 
-    public override double doubleValue => this.value;
+    public override double DoubleValue => this.value;
 
     public override int GetHashCode() => Convert.ToInt16(this.value).GetHashCode();
 

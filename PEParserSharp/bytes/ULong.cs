@@ -84,7 +84,7 @@ public sealed class ULong : UNumber, IComparable<ULong>
     /// <code>0xFFFFFFFFFFFFFFFF</code> i.e. <code>(long) -1</code> becomes
     /// <code>(uint) 18446744073709551615</code>
     /// </summary>
-    public static ULong ValueOf(long value) => new ULong(value);
+    public static ULong ValueOf(long value) => new (value);
 
     /// <summary>
     /// Create an <code>unsigned long</code>
@@ -93,7 +93,7 @@ public sealed class ULong : UNumber, IComparable<ULong>
     ///             of an <code>unsigned long</code> </exception>
     //JAVA TO C# CONVERTER WARNING: Method 'throws' clauses are not available in C#:
     //ORIGINAL LINE: public static ULong valueOf(java.math.BigInteger value) throws NumberFormatException
-    public static ULong ValueOf(BigInteger value) => new ULong(value);
+    public static ULong ValueOf(BigInteger value) => new (value);
 
     /// <summary>
     /// Create an <code>unsigned long</code>
@@ -115,14 +115,7 @@ public sealed class ULong : UNumber, IComparable<ULong>
     /// </summary>
     private ULong(long value)
     {
-        if (value >= 0)
-        {
-            this.value = value;
-        }
-        else
-        {
-            this.value = value & long.MaxValue + MAX_VALUE_LONG;
-        }
+        this.value = value >= 0 ? (BigInteger)value : value & long.MaxValue + MAX_VALUE_LONG;
     }
 
     /// <summary>
@@ -148,13 +141,13 @@ public sealed class ULong : UNumber, IComparable<ULong>
         }
     }
 
-    public override int intValue => (int)(uint)(this.value & uint.MaxValue);
+    public override int IntValue => (int)(uint)(this.value & uint.MaxValue);
 
-    public override long longValue => (long)this.value;
+    public override long LongValue => (long)this.value;
 
-    public override float floatValue => (float)this.value;
+    public override float FloatValue => (float)this.value;
 
-    public override double doubleValue => (double)this.value;
+    public override double DoubleValue => (double)this.value;
 
     public override int GetHashCode() => this.value.GetHashCode();
 
@@ -165,9 +158,9 @@ public sealed class ULong : UNumber, IComparable<ULong>
             return true;
         }
 
-        if (obj is ULong)
+        if (obj is ULong u)
         {
-            return this.value.Equals(((ULong)obj).value);
+            return this.value.Equals(u.value);
         }
 
         return false;
@@ -181,10 +174,7 @@ public sealed class ULong : UNumber, IComparable<ULong>
 
     public override string ToString() => this.value.ToString();
 
-    public override string ToHexString()
-    {
-        return BitConverter.ToString(this.value.ToByteArray()).Replace("-", "");
-    }
+    public override string ToHexString() => Convert.ToHexString(this.value.ToByteArray());
 
     public int CompareTo(ULong o) => this.value.CompareTo(o.value);
 }

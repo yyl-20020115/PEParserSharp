@@ -29,12 +29,12 @@ public class ByteArray : MemoryStream
 {
 	public ByteArray(byte[] bytes) : base(bytes, 0, bytes.Length, false, true)
 	{
-		this.buf = Array.ConvertAll(this.GetBuffer(), x => unchecked((sbyte)(x)));
+		this.buffer = Array.ConvertAll(this.GetBuffer(), x => unchecked((sbyte)(x)));
 	}
 
 	public ByteArray(sbyte[] bytes) : base(Array.ConvertAll(bytes, x => unchecked((byte)(x))), 0, bytes.Length, false, true)
 	{
-		this.buf = bytes;
+		this.buffer = bytes;
 	}
 
     public virtual string ReadAsciiString(int length) =>
@@ -47,37 +47,37 @@ public class ByteArray : MemoryStream
 		set => base.Position = value;
 	}
 
-    private sbyte[] buf;
+    private sbyte[] buffer;
 
 	public virtual ULong ReadULong(int length)
 	{
-		var result = LittleEndian.ULong.From(this.buf, this.Pos, length);
+		var result = LittleEndian.ULong.From(this.buffer, this.Pos, length);
 		this.Pos += length;
 		return result;
 	}
 
 	public virtual UInteger ReadUInt(int length)
 	{
-		UInteger result = LittleEndian.UInt.From(this.buf, this.Pos, length);
+		UInteger result = LittleEndian.UInt.From(this.buffer, this.Pos, length);
 		this.Pos += length;
 		return result;
 	}
 
 	public virtual UShort ReadUShort(int length)
 	{
-		var result = LittleEndian.UShort.From(this.buf, this.Pos, length);
+		var result = LittleEndian.UShort.From(this.buffer, this.Pos, length);
 		this.Pos += length;
 		return result;
 	}
 
 	public virtual UByte ReadUByte()
 	{
-		var b = UByte.ValueOf(this.buf[this.Pos]);
+		var b = UByte.ValueOf(this.buffer[this.Pos]);
 		this.Pos++;
 		return b;
 	}
 
-    public virtual sbyte ReadRaw(int offset) => this.buf[this.Pos + offset];
+    public virtual sbyte ReadRaw(int offset) => this.buffer[this.Pos + offset];
 
     public virtual sbyte[] CopyBytes(int length)
 	{

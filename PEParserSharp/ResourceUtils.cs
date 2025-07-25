@@ -76,8 +76,8 @@ public static class ResourceUtils
         if (mainEntry is null)
             return icons;
         var root = (ResourceDirectoryHeader)mainEntry.data;
-        var iconDir = root.entries.FirstOrDefault(x => x.NAME.get == "Icon")?.directory;
-        var iconsGroupDir = root.entries.FirstOrDefault(x => x.NAME.get == "Group Icon")?.directory;
+        var iconDir = root.entries.FirstOrDefault(x => x.NAME.Get == "Icon")?.directory;
+        var iconsGroupDir = root.entries.FirstOrDefault(x => x.NAME.Get == "Group Icon")?.directory;
         if (iconDir is null || iconsGroupDir is null)
             return icons;
 
@@ -86,10 +86,10 @@ public static class ResourceUtils
 
         foreach (var idx in iconIndexes)
         {
-            var group = iconsGroupDir.entries.FirstOrDefault(x => x.NAME.get == Convert.ToString(idx, 16))?.directory;
+            var group = iconsGroupDir.entries.FirstOrDefault(x => x.NAME.Get == Convert.ToString(idx, 16))?.directory;
             if (group is null)
                 continue;
-            var group_data = Array.ConvertAll(group.entries[0].resourceDataEntry.getData(pe.fileBytes), x => unchecked((byte)(x)));
+            var group_data = Array.ConvertAll(group.entries[0].resourceDataEntry.GetData(pe.fileBytes), x => unchecked((byte)(x)));
 
             var icos = new List<IconDirResEntry>();
             GCHandle iconHandle = GCHandle.Alloc(group_data, GCHandleType.Pinned);
@@ -115,11 +115,11 @@ public static class ResourceUtils
                 continue;
             var sortedIcos = icos.OrderBy(x => GetIconHeight(x));
             var closest_icon_id = GetIconHeight(sortedIcos.Last()) >= minimumSize ? sortedIcos.First(x => GetIconHeight(x) >= minimumSize) : sortedIcos.Last();
-            var icon = iconDir.entries.FirstOrDefault(x => Convert.ToInt32(x.NAME.get, 16) == closest_icon_id.ResourceID)?.directory;
+            var icon = iconDir.entries.FirstOrDefault(x => Convert.ToInt32(x.NAME.Get, 16) == closest_icon_id.ResourceID)?.directory;
             if (icon is null)
                 continue;
 
-            var data = Array.ConvertAll(icon.entries[0].resourceDataEntry.getData(pe.fileBytes), x => unchecked((byte)(x)));
+            var data = Array.ConvertAll(icon.entries[0].resourceDataEntry.GetData(pe.fileBytes), x => unchecked((byte)(x)));
             if (data.Take(4).Select(x => (int)x).SequenceEqual(new[] { 137, 80, 78, 71 })) // PNG, ok
             {
                 icons.Add(new IconResource(Convert.ToString(idx, 16), data, IconType.PNG, GetIconWidth(closest_icon_id), GetIconHeight(closest_icon_id)));

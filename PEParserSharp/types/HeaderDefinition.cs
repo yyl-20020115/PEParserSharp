@@ -26,11 +26,11 @@ namespace PEParserSharp.Types
 		{
 		}
 
-        public override string get => DescriptiveName;
+        public override string Get => DescriptiveName;
 
         public override void Format(StringBuilder b)
 		{
-			b.Append(System.Environment.NewLine).Append(get).Append(System.Environment.NewLine).Append(".......................").Append(System.Environment.NewLine).Append(System.Environment.NewLine);
+			b.Append(System.Environment.NewLine).Append(Get).Append(System.Environment.NewLine).Append(".......................").Append(System.Environment.NewLine).Append(System.Environment.NewLine);
 		}
 	}
 

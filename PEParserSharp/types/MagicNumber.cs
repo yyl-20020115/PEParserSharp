@@ -30,11 +30,11 @@ namespace PEParserSharp.Types
 			this.value = value;
 		}
 
-        public override sealed MagicNumberType get => MagicNumberType.get(this.value);
+        public override sealed MagicNumberType Get => MagicNumberType.get(this.value);
 
         public override sealed void Format(StringBuilder b)
 		{
-			b.Append(DescriptiveName).Append(": ").Append(this.value).Append(" --> ").Append(get.Description).Append(System.Environment.NewLine);
+			b.Append(DescriptiveName).Append(": ").Append(this.value).Append(" --> ").Append(Get.Description).Append(System.Environment.NewLine);
 		}
 	}
 

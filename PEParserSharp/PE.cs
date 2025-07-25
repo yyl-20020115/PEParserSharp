@@ -134,7 +134,7 @@ public class PeFile
             this.coffHeader = new COFFFileHeader(this.fileBytes);
             this.optionalHeader = new OptionalHeader(this.fileBytes);
 
-            int numberOfEntries = this.coffHeader.NumberOfSections.get.intValue;
+            int numberOfEntries = this.coffHeader.NumberOfSections.Get.IntValue;
             this.sectionTable = new SectionTable(this.fileBytes, numberOfEntries);
 
             // now the bytes are positioned at the start of the section table. ALl other info MUST be done relative to byte offsets/locations!
@@ -142,12 +142,12 @@ public class PeFile
             // fixup directory names -> table names (from spec!)
             foreach (var section in this.sectionTable.sections)
             {
-                long sectionAddress = section.VIRTUAL_ADDRESS.get.longValue;
-                long sectionSize = section.SIZE_OF_RAW_DATA.get.longValue;
+                long sectionAddress = section.VIRTUAL_ADDRESS.Get.LongValue;
+                long sectionSize = section.SIZE_OF_RAW_DATA.Get.LongValue;
 
                 foreach (ImageDataDir entry in this.optionalHeader.tables)
                 {
-                    long optionAddress = entry.get.longValue;
+                    long optionAddress = entry.Get.LongValue;
 
                     if (sectionAddress <= optionAddress && sectionAddress + sectionSize > optionAddress)
                     {
@@ -167,8 +167,8 @@ public class PeFile
                     var section = entry.Section;
                     if (section != null)
                     {
-                        long delta = section.VIRTUAL_ADDRESS.get.longValue - section.POINTER_TO_RAW_DATA.get.longValue;
-                        long offsetInFile = entry.get.longValue - delta;
+                        long delta = section.VIRTUAL_ADDRESS.Get.LongValue - section.POINTER_TO_RAW_DATA.Get.LongValue;
+                        long offsetInFile = entry.Get.LongValue - delta;
 
                         if (offsetInFile > int.MaxValue)
                         {
@@ -198,7 +198,7 @@ public class PeFile
 
                 //JAVA TO C# CONVERTER WARNING: Java wildcard generics have no direct equivalent in C#:
                 //ORIGINAL LINE: for (PEParserSharp.types.ByteDefinition<?> bd : this.coffHeader.headers)
-                foreach (ByteDefinition bd in this.coffHeader.headers)
+                foreach (ByteDefinition bd in this.coffHeader.Headers)
                 {
                     bd.Format(builder);
                 }
@@ -208,7 +208,7 @@ public class PeFile
 
                 //JAVA TO C# CONVERTER WARNING: Java wildcard generics have no direct equivalent in C#:
                 //ORIGINAL LINE: for (PEParserSharp.types.ByteDefinition<?> bd : this.optionalHeader.headers)
-                foreach (var bd in this.optionalHeader.headers)
+                foreach (var bd in this.optionalHeader.Headers)
                 {
                     bd.Format(builder);
                 }
@@ -221,7 +221,7 @@ public class PeFile
                 {
                     //JAVA TO C# CONVERTER WARNING: Java wildcard generics have no direct equivalent in C#:
                     //ORIGINAL LINE: for (PEParserSharp.types.ByteDefinition<?> bd : section.headers)
-                    foreach (ByteDefinition bd in section.headers)
+                    foreach (ByteDefinition bd in section.Headers)
                     {
                         bd.Format(builder);
                     }
@@ -243,7 +243,7 @@ public class PeFile
         {
             this.fileBytes.Mark();
             this.fileBytes.Seek(PE_OFFSET_LOCATION);
-            int read = this.fileBytes.ReadUShort(2).intValue;
+            int read = this.fileBytes.ReadUShort(2).IntValue;
             this.fileBytes.Reset();
             return read;
         }
@@ -328,14 +328,14 @@ public class PeFile
                     {
                         ResourceDataEntry dataEntry = resourceEntry.resourceDataEntry;
 
-                        if (largest == null || largest.SIZE.get.longValue < dataEntry.SIZE.get.longValue)
+                        if (largest == null || largest.SIZE.Get.LongValue < dataEntry.SIZE.Get.LongValue)
                         {
                             largest = dataEntry;
                         }
                     }
 
                     // now return our resource, but it has to be wrapped in a new stream!
-                    return new MemoryStream(Array.ConvertAll(largest.getData(this.fileBytes), x => unchecked((byte)(x))));
+                    return new MemoryStream(Array.ConvertAll(largest.GetData(this.fileBytes), x => unchecked((byte)(x))));
                 }
             }
             return null;
@@ -360,9 +360,9 @@ public class PeFile
                 var root = (ResourceDirectoryHeader)mainEntry.data;
                 foreach (var rootEntry in root.entries)
                 {
-                    if ("Version".Equals(rootEntry.NAME.get))
+                    if ("Version".Equals(rootEntry.NAME.Get))
                     {
-                        var versionInfoData = rootEntry.directory.entries[0].directory.entries[0].resourceDataEntry.getData(pe.fileBytes);
+                        var versionInfoData = rootEntry.directory.entries[0].directory.entries[0].resourceDataEntry.GetData(pe.fileBytes);
                         int fileVersionIndex = IndexOf(versionInfoData, IncludeNulls("FileVersion")) + 26;
                         int fileVersionEndIndex = IndexOf(versionInfoData, new sbyte[] { 0x00, 0x00 }, fileVersionIndex);
                         return RemoveNulls(StringHelper.NewString(versionInfoData, fileVersionIndex, fileVersionEndIndex - fileVersionIndex));

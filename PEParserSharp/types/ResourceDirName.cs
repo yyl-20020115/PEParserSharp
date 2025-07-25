@@ -49,7 +49,7 @@ namespace PEParserSharp.Types
 			* Yes, even PE files intended for non-UNICODE Win32 implementations use UNICODE here. To convert the UNICODE
 			* string to an ANSI string, use the WideCharToMultiByte function.
 			*/
-			long valueInt = intValue.longValue;
+			long valueInt = intValue.LongValue;
 
 			// now process the name
 			bool isString = 0 != (valueInt & NAME_IS_STRING_MASK);
@@ -69,7 +69,7 @@ namespace PEParserSharp.Types
 
 				// offset from the start of the resource data to the name string of this particular resource.
 				bytes.Seek(bytes.Marked + (int) offset);
-				int length = bytes.ReadUShort(2).intValue;
+				int length = bytes.ReadUShort(2).IntValue;
 
 				sbyte[] buff = new sbyte[length * 2]; // UTF-8 chars are 16 bits = 2
 				// bytes
@@ -109,7 +109,7 @@ namespace PEParserSharp.Types
 			}
 		}
 
-        public override sealed string get => this.value;
+        public override sealed string Get => this.value;
 
         public override void Format(StringBuilder b)
 		{

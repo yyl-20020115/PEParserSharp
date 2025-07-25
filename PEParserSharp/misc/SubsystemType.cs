@@ -85,7 +85,7 @@ public sealed class SubsystemType
 
 	public static SubsystemType get(PEParserSharp.Bytes.UShort value)
 	{
-		int valueAsInt = value.intValue;
+		int valueAsInt = value.IntValue;
 
 		foreach (SubsystemType c in values())
 		{

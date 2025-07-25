@@ -47,7 +47,7 @@ namespace PEParserSharp.Types
 			}
 		}
 
-        public abstract T get { get; }
+        public abstract T Get { get; }
     }
 
 }

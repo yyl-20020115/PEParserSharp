@@ -22,31 +22,21 @@ using Header = PEParserSharp.Headers.Header;
 using SectionTableEntry = PEParserSharp.Headers.SectionTableEntry;
 using DWORD = PEParserSharp.Types.DWORD;
 
-public class ResourceDataEntry : Header
+/// <param name="section"> - necessary to know this section for when computing the location of the resource data! </param>
+public class ResourceDataEntry(ByteArray bytes, SectionTableEntry section) : Header
 {
 
-	public readonly DWORD OFFSET_TO_DATA; // The address of a unit of resource data in the Resource Data area.
-	public readonly DWORD SIZE;
-	public readonly DWORD CODE_PAGE;
-	public readonly DWORD RESERVED;
+	public readonly DWORD OFFSET_TO_DATA = new DWORD(bytes.ReadUInt(4), "offsetToData"); // The address of a unit of resource data in the Resource Data area.
+	public readonly DWORD SIZE = new DWORD(bytes.ReadUInt(4), "Size");
+	public readonly DWORD CODE_PAGE = new DWORD(bytes.ReadUInt(4), "CodePage");
+	public readonly DWORD RESERVED = new DWORD(bytes.ReadUInt(4), "Reserved");
 
-	private readonly SectionTableEntry section;
+	private readonly SectionTableEntry section = section;
 
-	/// <param name="section"> - necessary to know this section for when computing the location of the resource data! </param>
-	public ResourceDataEntry(ByteArray bytes, SectionTableEntry section)
-	{
-		this.section = section;
-
-		this.OFFSET_TO_DATA = new DWORD(bytes.ReadUInt(4), "offsetToData");
-		this.SIZE = new DWORD(bytes.ReadUInt(4), "Size");
-		this.CODE_PAGE = new DWORD(bytes.ReadUInt(4), "CodePage");
-		this.RESERVED = new DWORD(bytes.ReadUInt(4), "Reserved");
-	}
-
-	public virtual sbyte[] getData(ByteArray bytes)
+    public virtual sbyte[] GetData(ByteArray bytes)
 	{
 		// this is where to get the data from the ABSOLUTE position in the file!
-		long dataOffset = this.section.POINTER_TO_RAW_DATA.get.longValue + this.OFFSET_TO_DATA.get.longValue - this.section.VIRTUAL_ADDRESS.get.longValue;
+		long dataOffset = this.section.POINTER_TO_RAW_DATA.Get.LongValue + this.OFFSET_TO_DATA.Get.LongValue - this.section.VIRTUAL_ADDRESS.Get.LongValue;
 
 		if (dataOffset > int.MaxValue)
 		{
@@ -57,13 +47,13 @@ public class ResourceDataEntry : Header
 		int saved = bytes.Position;
 		bytes.Seek((int) dataOffset);
 
-		long bytesToCopyLong = this.SIZE.get.longValue;
+		long bytesToCopyLong = this.SIZE.Get.LongValue;
 		if (bytesToCopyLong > int.MaxValue)
 		{
 			throw new Exception("Unable to copy more than 2gb of bytes!");
 		}
 
-		sbyte[] copyBytes = bytes.CopyBytes((int)bytesToCopyLong);
+		var copyBytes = bytes.CopyBytes((int)bytesToCopyLong);
 		bytes.Seek(saved);
 		return copyBytes;
 	}

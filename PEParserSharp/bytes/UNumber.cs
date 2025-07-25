@@ -38,15 +38,15 @@
 namespace PEParserSharp.Bytes;
 
 public abstract class Number
-    {
-        //public abstract byte byteValue();
-        public abstract double doubleValue { get; }
-        public abstract float floatValue { get; }
-        public abstract int intValue { get; }
+{
+    //public abstract byte byteValue();
+    public abstract double DoubleValue { get; }
+    public abstract float FloatValue { get; }
+    public abstract int IntValue { get; }
 
-        public abstract long longValue { get; }
-        //public abstract short shortValue();
-    }
+    public abstract long LongValue { get; }
+    //public abstract short shortValue();
+}
 
 /// <summary>
 /// A base type for unsigned numbers.
@@ -55,25 +55,14 @@ public abstract class Number
 /// </summary>
 public abstract class UNumber : Number
 {
-
-	/// <summary>
-	/// Generated UID
-	/// </summary>
-	private const long serialVersionUID = -7666221938815339843L;
-
-    public static long SerialVersionUID => serialVersionUID;
-
     /// <summary>
     /// Converts this number to a hex string representation
     /// </summary>
     public abstract string ToHexString();
 
-	/// <summary>
-	/// Get this number as a <seealso cref="System.Numerics.BigInteger"/>. This is a convenience method for
-	/// calling <code>new BigInteger(toString())</code>
-	/// </summary>
-	public virtual BigInteger ToBigInteger()
-	{
-		return BigInteger.Parse(ToString());
-	}
+    /// <summary>
+    /// Get this number as a <seealso cref="System.Numerics.BigInteger"/>. This is a convenience method for
+    /// calling <code>new BigInteger(toString())</code>
+    /// </summary>
+    public virtual BigInteger ToBigInteger() => BigInteger.Parse(ToString());
 }

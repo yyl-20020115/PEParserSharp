@@ -66,12 +66,12 @@ public class COFFFileHeader : Header
 
 	public COFFFileHeader(ByteArray bytes)
 	{
-		this.Machine = h(new MachineType(bytes.ReadUShort(2), "machine type"));
-		this.NumberOfSections = h(new WORD(bytes.ReadUShort(2), "number of sections"));
-		this.TimeDateStamp = h(new TimeDate(bytes.ReadUInt(4), "time date stamp"));
-		this.PointerToSymbolTable = h(new DWORD(bytes.ReadUInt(4), "pointer to symbol table"));
-		this.NumberOfSymbols = h(new DWORD(bytes.ReadUInt(4), "number of symbols"));
-		this.SizeOfOptionalHeader = h(new WORD(bytes.ReadUShort(2), "size of optional header"));
-		this.Characteristics = h(new CoffCharacteristics(bytes.ReadUShort(2), "characteristics"));
+		this.Machine = H(new MachineType(bytes.ReadUShort(2), "machine type"));
+		this.NumberOfSections = H(new WORD(bytes.ReadUShort(2), "number of sections"));
+		this.TimeDateStamp = H(new TimeDate(bytes.ReadUInt(4), "time date stamp"));
+		this.PointerToSymbolTable = H(new DWORD(bytes.ReadUInt(4), "pointer to symbol table"));
+		this.NumberOfSymbols = H(new DWORD(bytes.ReadUInt(4), "number of symbols"));
+		this.SizeOfOptionalHeader = H(new WORD(bytes.ReadUShort(2), "size of optional header"));
+		this.Characteristics = H(new CoffCharacteristics(bytes.ReadUShort(2), "characteristics"));
 	}
 }

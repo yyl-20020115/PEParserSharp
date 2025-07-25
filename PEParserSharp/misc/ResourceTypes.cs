@@ -128,7 +128,7 @@ public sealed class ResourceTypes
 
 	public static ResourceTypes get(PEParserSharp.Bytes.UInteger valueInt)
 	{
-		int valueAsInt = valueInt.intValue;
+		int valueAsInt = valueInt.IntValue;
 
 		foreach (ResourceTypes t in values())
 		{

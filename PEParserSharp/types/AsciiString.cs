@@ -31,7 +31,7 @@ public class AsciiString : ByteDefinition<string>
 		this.value = (StringHelper.NewString(stringBytes, System.Text.Encoding.ASCII)).Trim();
 	}
 
-        public override sealed string get => this.value;
+        public override sealed string Get => this.value;
 
         public override void Format(StringBuilder b)
 	{

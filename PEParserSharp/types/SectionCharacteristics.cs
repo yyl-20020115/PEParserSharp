@@ -30,11 +30,11 @@ namespace PEParserSharp.Types
 			this.value = value;
 		}
 
-        public override sealed SectionCharacteristicsType[] get => SectionCharacteristicsType.get(this.value);
+        public override sealed SectionCharacteristicsType[] Get => SectionCharacteristicsType.Get(this.value);
 
         public override void Format(StringBuilder b)
 		{
-			SectionCharacteristicsType[] characteristics = get;
+			SectionCharacteristicsType[] characteristics = Get;
 
 			b.Append(DescriptiveName).Append(": ").Append(System.Environment.NewLine);
 

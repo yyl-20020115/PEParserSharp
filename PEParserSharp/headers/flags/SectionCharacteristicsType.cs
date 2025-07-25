@@ -7,7 +7,7 @@ using System.Collections.Generic;
 namespace PEParserSharp.Headers.Flags;
 
 
-using UInteger = PEParserSharp.Bytes.UInteger;
+using UInteger = Bytes.UInteger;
 
 public sealed class SectionCharacteristicsType
 {
@@ -45,12 +45,12 @@ public sealed class SectionCharacteristicsType
 		innerEnumValue = innerEnum;
 	}
 
-	public static SectionCharacteristicsType[] get(PEParserSharp.Bytes.UInteger key)
+	public static SectionCharacteristicsType[] Get(PEParserSharp.Bytes.UInteger key)
 	{
 		IList<SectionCharacteristicsType> chars = new List<SectionCharacteristicsType>(0);
-		long keyAsLong = key.longValue;
+		long keyAsLong = key.LongValue;
 
-		foreach (SectionCharacteristicsType c in values())
+		foreach (SectionCharacteristicsType c in Values())
 		{
 			long mask = Convert.ToInt64(c.hexValue, 16);
 			if ((keyAsLong & mask) != 0)
@@ -62,31 +62,19 @@ public sealed class SectionCharacteristicsType
 		return ((List<SectionCharacteristicsType>)chars).ToArray();
 	}
 
-	public string Description
+    public string Description => this.description;
+
+
+    public static SectionCharacteristicsType[] Values()
 	{
-		get
-		{
-			return this.description;
-		}
+		return [.. valueList];
 	}
 
+    public int Ordinal => ordinalValue;
 
-	public static SectionCharacteristicsType[] values()
-	{
-		return valueList.ToArray();
-	}
+    public override string ToString() => nameValue;
 
-	public int ordinal()
-	{
-		return ordinalValue;
-	}
-
-	public override string ToString()
-	{
-		return nameValue;
-	}
-
-	public static SectionCharacteristicsType valueOf(string name)
+    public static SectionCharacteristicsType ValueOf(string name)
 	{
 		foreach (SectionCharacteristicsType enumInstance in SectionCharacteristicsType.valueList)
 		{

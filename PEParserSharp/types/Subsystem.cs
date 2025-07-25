@@ -30,11 +30,11 @@ namespace PEParserSharp.Types
 			this.value = value;
 		}
 
-        public override sealed SubsystemType get => SubsystemType.get(this.value);
+        public override sealed SubsystemType Get => SubsystemType.get(this.value);
 
         public override void Format(StringBuilder b)
 		{
-			SubsystemType s = get;
+			SubsystemType s = Get;
 
 			if (s != null)
 			{

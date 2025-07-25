@@ -19,140 +19,125 @@ using System.Collections.Generic;
 namespace PEParserSharp.Headers.Flags;
 
 
-using UShort = PEParserSharp.Bytes.UShort;
+using UShort = Bytes.UShort;
 
 public sealed class Characteristics
 {
 
-	public static readonly Characteristics IMAGE_FILE_RELOCS_STRIPPED = new Characteristics("IMAGE_FILE_RELOCS_STRIPPED", InnerEnum.IMAGE_FILE_RELOCS_STRIPPED, "1", "Resource information is stripped from the file");
-	public static readonly Characteristics IMAGE_FILE_EXECUTABLE_IMAGE = new Characteristics("IMAGE_FILE_EXECUTABLE_IMAGE", InnerEnum.IMAGE_FILE_EXECUTABLE_IMAGE, "2", "The file is executable (no unresoled external references");
-	public static readonly Characteristics IMAGE_FILE_LINE_NUMS_STRIPPED = new Characteristics("IMAGE_FILE_LINE_NUMS_STRIPPED", InnerEnum.IMAGE_FILE_LINE_NUMS_STRIPPED, "4", "COFF line numbers are stripped from the file (DEPRECATED)");
-	public static readonly Characteristics IMAGE_FILE_LOCAL_SYMS_STRIPPED = new Characteristics("IMAGE_FILE_LOCAL_SYMS_STRIPPED", InnerEnum.IMAGE_FILE_LOCAL_SYMS_STRIPPED, "8", "COFF local symbols are stripped form the file (DEPRECATED)");
-	public static readonly Characteristics IMAGE_FILE_AGGRESSIVE_WS_TRIM = new Characteristics("IMAGE_FILE_AGGRESSIVE_WS_TRIM", InnerEnum.IMAGE_FILE_AGGRESSIVE_WS_TRIM, "10", "Aggressively trim working set (DEPRECATED for Windows 2000 and later)");
-	public static readonly Characteristics IMAGE_FILE_LARGE_ADDRESS_AWARE = new Characteristics("IMAGE_FILE_LARGE_ADDRESS_AWARE", InnerEnum.IMAGE_FILE_LARGE_ADDRESS_AWARE, "20", "Application can handle larger than 2 GB addresses.");
-	public static readonly Characteristics IMAGE_FILE_RESERVED = new Characteristics("IMAGE_FILE_RESERVED", InnerEnum.IMAGE_FILE_RESERVED, "40", "Use of this flag is reserved.");
-	public static readonly Characteristics IMAGE_FILE_BYTES_REVERSED_LO = new Characteristics("IMAGE_FILE_BYTES_REVERSED_LO", InnerEnum.IMAGE_FILE_BYTES_REVERSED_LO, "80", "Bytes of the word are reversed (REVERSED LO)");
-	public static readonly Characteristics IMAGE_FILE_32BIT_MACHINE = new Characteristics("IMAGE_FILE_32BIT_MACHINE", InnerEnum.IMAGE_FILE_32BIT_MACHINE, "100", "Machine is based on a 32-bit-word architecture.");
-	public static readonly Characteristics IMAGE_FILE_DEBUG_STRIPPED = new Characteristics("IMAGE_FILE_DEBUG_STRIPPED", InnerEnum.IMAGE_FILE_DEBUG_STRIPPED, "200", "Debugging is removed from the file.");
-	public static readonly Characteristics IMAGE_FILE_REMOVABLE_RUN_FROM_SWAP = new Characteristics("IMAGE_FILE_REMOVABLE_RUN_FROM_SWAP", InnerEnum.IMAGE_FILE_REMOVABLE_RUN_FROM_SWAP, "400", "If the image is on removable media, fully load it and copy it to the swap file.");
-	public static readonly Characteristics IMAGE_FILE_NET_RUN_FROM_SWAP = new Characteristics("IMAGE_FILE_NET_RUN_FROM_SWAP", InnerEnum.IMAGE_FILE_NET_RUN_FROM_SWAP, "800", "If the image is on network media, fully load it and copy it to the swap file.");
-	public static readonly Characteristics IMAGE_FILE_SYSTEM = new Characteristics("IMAGE_FILE_SYSTEM", InnerEnum.IMAGE_FILE_SYSTEM, "1000", "The image file is a system file, (such as a driver) and not a user program.");
-	public static readonly Characteristics IMAGE_FILE_DLL = new Characteristics("IMAGE_FILE_DLL", InnerEnum.IMAGE_FILE_DLL, "2000", "The image file is a dynamic-link library (DLL). Such files are considered executable files for almost all purposes, although they cannot be directly run.");
-	public static readonly Characteristics IMAGE_FILE_UP_SYSTEM_ONLY = new Characteristics("IMAGE_FILE_UP_SYSTEM_ONLY", InnerEnum.IMAGE_FILE_UP_SYSTEM_ONLY, "4000", "The file should be run only on a uniprocessor machine.");
-	public static readonly Characteristics IMAGE_FILE_BYTES_REVERSED_HI = new Characteristics("IMAGE_FILE_BYTES_REVERSED_HI", InnerEnum.IMAGE_FILE_BYTES_REVERSED_HI, "8000", "Bytes of the word are reversed (REVERSED HI)");
+    public static readonly Characteristics IMAGE_FILE_RELOCS_STRIPPED = new("IMAGE_FILE_RELOCS_STRIPPED", InnerEnum.IMAGE_FILE_RELOCS_STRIPPED, "1", "Resource information is stripped from the file");
+    public static readonly Characteristics IMAGE_FILE_EXECUTABLE_IMAGE = new("IMAGE_FILE_EXECUTABLE_IMAGE", InnerEnum.IMAGE_FILE_EXECUTABLE_IMAGE, "2", "The file is executable (no unresoled external references");
+    public static readonly Characteristics IMAGE_FILE_LINE_NUMS_STRIPPED = new("IMAGE_FILE_LINE_NUMS_STRIPPED", InnerEnum.IMAGE_FILE_LINE_NUMS_STRIPPED, "4", "COFF line numbers are stripped from the file (DEPRECATED)");
+    public static readonly Characteristics IMAGE_FILE_LOCAL_SYMS_STRIPPED = new("IMAGE_FILE_LOCAL_SYMS_STRIPPED", InnerEnum.IMAGE_FILE_LOCAL_SYMS_STRIPPED, "8", "COFF local symbols are stripped form the file (DEPRECATED)");
+    public static readonly Characteristics IMAGE_FILE_AGGRESSIVE_WS_TRIM = new("IMAGE_FILE_AGGRESSIVE_WS_TRIM", InnerEnum.IMAGE_FILE_AGGRESSIVE_WS_TRIM, "10", "Aggressively trim working set (DEPRECATED for Windows 2000 and later)");
+    public static readonly Characteristics IMAGE_FILE_LARGE_ADDRESS_AWARE = new("IMAGE_FILE_LARGE_ADDRESS_AWARE", InnerEnum.IMAGE_FILE_LARGE_ADDRESS_AWARE, "20", "Application can handle larger than 2 GB addresses.");
+    public static readonly Characteristics IMAGE_FILE_RESERVED = new("IMAGE_FILE_RESERVED", InnerEnum.IMAGE_FILE_RESERVED, "40", "Use of this flag is reserved.");
+    public static readonly Characteristics IMAGE_FILE_BYTES_REVERSED_LO = new("IMAGE_FILE_BYTES_REVERSED_LO", InnerEnum.IMAGE_FILE_BYTES_REVERSED_LO, "80", "Bytes of the word are reversed (REVERSED LO)");
+    public static readonly Characteristics IMAGE_FILE_32BIT_MACHINE = new("IMAGE_FILE_32BIT_MACHINE", InnerEnum.IMAGE_FILE_32BIT_MACHINE, "100", "Machine is based on a 32-bit-word architecture.");
+    public static readonly Characteristics IMAGE_FILE_DEBUG_STRIPPED = new("IMAGE_FILE_DEBUG_STRIPPED", InnerEnum.IMAGE_FILE_DEBUG_STRIPPED, "200", "Debugging is removed from the file.");
+    public static readonly Characteristics IMAGE_FILE_REMOVABLE_RUN_FROM_SWAP = new("IMAGE_FILE_REMOVABLE_RUN_FROM_SWAP", InnerEnum.IMAGE_FILE_REMOVABLE_RUN_FROM_SWAP, "400", "If the image is on removable media, fully load it and copy it to the swap file.");
+    public static readonly Characteristics IMAGE_FILE_NET_RUN_FROM_SWAP = new("IMAGE_FILE_NET_RUN_FROM_SWAP", InnerEnum.IMAGE_FILE_NET_RUN_FROM_SWAP, "800", "If the image is on network media, fully load it and copy it to the swap file.");
+    public static readonly Characteristics IMAGE_FILE_SYSTEM = new("IMAGE_FILE_SYSTEM", InnerEnum.IMAGE_FILE_SYSTEM, "1000", "The image file is a system file, (such as a driver) and not a user program.");
+    public static readonly Characteristics IMAGE_FILE_DLL = new("IMAGE_FILE_DLL", InnerEnum.IMAGE_FILE_DLL, "2000", "The image file is a dynamic-link library (DLL). Such files are considered executable files for almost all purposes, although they cannot be directly run.");
+    public static readonly Characteristics IMAGE_FILE_UP_SYSTEM_ONLY = new("IMAGE_FILE_UP_SYSTEM_ONLY", InnerEnum.IMAGE_FILE_UP_SYSTEM_ONLY, "4000", "The file should be run only on a uniprocessor machine.");
+    public static readonly Characteristics IMAGE_FILE_BYTES_REVERSED_HI = new("IMAGE_FILE_BYTES_REVERSED_HI", InnerEnum.IMAGE_FILE_BYTES_REVERSED_HI, "8000", "Bytes of the word are reversed (REVERSED HI)");
 
-	private static readonly List<Characteristics> valueList = new List<Characteristics>();
+    private static readonly List<Characteristics> valueList = [];
 
-	static Characteristics()
-	{
-		valueList.Add(IMAGE_FILE_RELOCS_STRIPPED);
-		valueList.Add(IMAGE_FILE_EXECUTABLE_IMAGE);
-		valueList.Add(IMAGE_FILE_LINE_NUMS_STRIPPED);
-		valueList.Add(IMAGE_FILE_LOCAL_SYMS_STRIPPED);
-		valueList.Add(IMAGE_FILE_AGGRESSIVE_WS_TRIM);
-		valueList.Add(IMAGE_FILE_LARGE_ADDRESS_AWARE);
-		valueList.Add(IMAGE_FILE_RESERVED);
-		valueList.Add(IMAGE_FILE_BYTES_REVERSED_LO);
-		valueList.Add(IMAGE_FILE_32BIT_MACHINE);
-		valueList.Add(IMAGE_FILE_DEBUG_STRIPPED);
-		valueList.Add(IMAGE_FILE_REMOVABLE_RUN_FROM_SWAP);
-		valueList.Add(IMAGE_FILE_NET_RUN_FROM_SWAP);
-		valueList.Add(IMAGE_FILE_SYSTEM);
-		valueList.Add(IMAGE_FILE_DLL);
-		valueList.Add(IMAGE_FILE_UP_SYSTEM_ONLY);
-		valueList.Add(IMAGE_FILE_BYTES_REVERSED_HI);
-	}
+    static Characteristics()
+    {
+        valueList.Add(IMAGE_FILE_RELOCS_STRIPPED);
+        valueList.Add(IMAGE_FILE_EXECUTABLE_IMAGE);
+        valueList.Add(IMAGE_FILE_LINE_NUMS_STRIPPED);
+        valueList.Add(IMAGE_FILE_LOCAL_SYMS_STRIPPED);
+        valueList.Add(IMAGE_FILE_AGGRESSIVE_WS_TRIM);
+        valueList.Add(IMAGE_FILE_LARGE_ADDRESS_AWARE);
+        valueList.Add(IMAGE_FILE_RESERVED);
+        valueList.Add(IMAGE_FILE_BYTES_REVERSED_LO);
+        valueList.Add(IMAGE_FILE_32BIT_MACHINE);
+        valueList.Add(IMAGE_FILE_DEBUG_STRIPPED);
+        valueList.Add(IMAGE_FILE_REMOVABLE_RUN_FROM_SWAP);
+        valueList.Add(IMAGE_FILE_NET_RUN_FROM_SWAP);
+        valueList.Add(IMAGE_FILE_SYSTEM);
+        valueList.Add(IMAGE_FILE_DLL);
+        valueList.Add(IMAGE_FILE_UP_SYSTEM_ONLY);
+        valueList.Add(IMAGE_FILE_BYTES_REVERSED_HI);
+    }
 
-	public enum InnerEnum
-	{
-		IMAGE_FILE_RELOCS_STRIPPED,
-		IMAGE_FILE_EXECUTABLE_IMAGE,
-		IMAGE_FILE_LINE_NUMS_STRIPPED,
-		IMAGE_FILE_LOCAL_SYMS_STRIPPED,
-		IMAGE_FILE_AGGRESSIVE_WS_TRIM,
-		IMAGE_FILE_LARGE_ADDRESS_AWARE,
-		IMAGE_FILE_RESERVED,
-		IMAGE_FILE_BYTES_REVERSED_LO,
-		IMAGE_FILE_32BIT_MACHINE,
-		IMAGE_FILE_DEBUG_STRIPPED,
-		IMAGE_FILE_REMOVABLE_RUN_FROM_SWAP,
-		IMAGE_FILE_NET_RUN_FROM_SWAP,
-		IMAGE_FILE_SYSTEM,
-		IMAGE_FILE_DLL,
-		IMAGE_FILE_UP_SYSTEM_ONLY,
-		IMAGE_FILE_BYTES_REVERSED_HI
-	}
+    public enum InnerEnum : int
+    {
+        IMAGE_FILE_RELOCS_STRIPPED,
+        IMAGE_FILE_EXECUTABLE_IMAGE,
+        IMAGE_FILE_LINE_NUMS_STRIPPED,
+        IMAGE_FILE_LOCAL_SYMS_STRIPPED,
+        IMAGE_FILE_AGGRESSIVE_WS_TRIM,
+        IMAGE_FILE_LARGE_ADDRESS_AWARE,
+        IMAGE_FILE_RESERVED,
+        IMAGE_FILE_BYTES_REVERSED_LO,
+        IMAGE_FILE_32BIT_MACHINE,
+        IMAGE_FILE_DEBUG_STRIPPED,
+        IMAGE_FILE_REMOVABLE_RUN_FROM_SWAP,
+        IMAGE_FILE_NET_RUN_FROM_SWAP,
+        IMAGE_FILE_SYSTEM,
+        IMAGE_FILE_DLL,
+        IMAGE_FILE_UP_SYSTEM_ONLY,
+        IMAGE_FILE_BYTES_REVERSED_HI
+    }
 
-	public readonly InnerEnum innerEnumValue;
-	private readonly string nameValue;
-	private readonly int ordinalValue;
-	private static int nextOrdinal = 0;
+    public readonly InnerEnum innerEnumValue;
+    private readonly string nameValue;
+    private readonly int ordinalValue;
+    private static int nextOrdinal = 0;
 
-	private readonly string hexValue;
-	private readonly string description;
+    private readonly string hexValue;
+    private readonly string description;
 
-	internal Characteristics(string name, InnerEnum innerEnum, string hexValue, string description)
-	{
-		this.hexValue = hexValue;
-		this.description = description;
+    internal Characteristics(string name, InnerEnum innerEnum, string hexValue, string description)
+    {
+        this.hexValue = hexValue;
+        this.description = description;
 
-		nameValue = name;
-		ordinalValue = nextOrdinal++;
-		innerEnumValue = innerEnum;
-	}
+        nameValue = name;
+        ordinalValue = nextOrdinal++;
+        innerEnumValue = innerEnum;
+    }
 
-	public static Characteristics[] get(PEParserSharp.Bytes.UShort key)
-	{
-//        byte[] value = Arrays.copyOfRange(headerbytes, byteDefinition.getByteStart(), byteDefinition.getByteStart() + byteDefinition.getLength());
-//        int key = LittleEndian.Int_.fromBytes(value[0], value[1], (byte)0, (byte)0);
+    public static Characteristics[] Get(PEParserSharp.Bytes.UShort key)
+    {
+        //        byte[] value = Arrays.copyOfRange(headerbytes, byteDefinition.getByteStart(), byteDefinition.getByteStart() + byteDefinition.getLength());
+        //        int key = LittleEndian.Int_.fromBytes(value[0], value[1], (byte)0, (byte)0);
 
-		IList<Characteristics> chars = new List<Characteristics>(0);
-		int keyAsInt = key.intValue;
+        IList<Characteristics> chars = new List<Characteristics>(0);
+        int keyAsInt = key.IntValue;
 
-		foreach (Characteristics c in values())
-		{
-			long mask = Convert.ToInt64(c.hexValue, 16);
-			if ((keyAsInt & mask) != 0)
-			{
-				chars.Add(c);
-			}
-		}
+        foreach (Characteristics c in Values)
+        {
+            long mask = Convert.ToInt64(c.hexValue, 16);
+            if ((keyAsInt & mask) != 0)
+            {
+                chars.Add(c);
+            }
+        }
 
-		return ((List<Characteristics>)chars).ToArray();
-	}
+        return [.. ((List<Characteristics>)chars)];
+    }
 
-	public string Description
-	{
-		get
-		{
-			return this.description;
-		}
-	}
+    public string Description => this.description;
 
-	public static Characteristics[] values()
-	{
-		return valueList.ToArray();
-	}
+    public static Characteristics[] Values => [.. valueList];
 
-	public int ordinal()
-	{
-		return ordinalValue;
-	}
+    public int Ordinal() => ordinalValue;
 
-	public override string ToString()
-	{
-		return nameValue;
-	}
+    public override string ToString() => nameValue;
 
     public static Characteristics ValueOf(string name)
-	{
-		foreach (Characteristics enumInstance in Characteristics.valueList)
-		{
-			if (enumInstance.nameValue == name)
-			{
-				return enumInstance;
-			}
-		}
-		throw new System.ArgumentException(name);
-	}
+    {
+        foreach (Characteristics enumInstance in Characteristics.valueList)
+        {
+            if (enumInstance.nameValue == name)
+            {
+                return enumInstance;
+            }
+        }
+        throw new ArgumentException(name);
+    }
 }

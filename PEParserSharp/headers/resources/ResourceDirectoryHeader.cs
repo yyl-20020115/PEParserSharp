@@ -44,8 +44,8 @@ public class ResourceDirectoryHeader : Header
 		this.NUM_ID_ENTRIES = new WORD(bytes.ReadUShort(2), "Number of ID Entries");
 
 
-		int numberOfNamedEntires = this.NUM_NAME_ENTRIES.get.intValue;
-		int numberOfIDEntires = this.NUM_ID_ENTRIES.get.intValue;
+		int numberOfNamedEntires = this.NUM_NAME_ENTRIES.Get.IntValue;
+		int numberOfIDEntires = this.NUM_ID_ENTRIES.Get.IntValue;
 
 		int numberOfEntries = numberOfNamedEntires + numberOfIDEntires;
 

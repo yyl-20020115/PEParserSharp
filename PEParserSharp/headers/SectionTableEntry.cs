@@ -43,19 +43,19 @@ public class SectionTableEntry : Header
 	public SectionTableEntry(ByteArray bytes, int entryNumber, int offset, int size)
 	{
 
-		h(new HeaderDefinition("Section table entry: " + entryNumber));
+		H(new HeaderDefinition("Section table entry: " + entryNumber));
 
-		this.NAME = h(new AsciiString(bytes, 8, "name"));
-		this.VIRTUAL_SIZE = h(new DWORD(bytes.ReadUInt(4), "virtual size"));
-		this.VIRTUAL_ADDRESS = h(new DWORD(bytes.ReadUInt(4), "virtual address"));
+		this.NAME = H(new AsciiString(bytes, 8, "name"));
+		this.VIRTUAL_SIZE = H(new DWORD(bytes.ReadUInt(4), "virtual size"));
+		this.VIRTUAL_ADDRESS = H(new DWORD(bytes.ReadUInt(4), "virtual address"));
 
-		this.SIZE_OF_RAW_DATA = h(new DWORD(bytes.ReadUInt(4), "size of raw data"));
-		this.POINTER_TO_RAW_DATA = h(new DWORD(bytes.ReadUInt(4), "pointer to raw data"));
-		this.POINTER_TO_RELOCATIONS = h(new DWORD(bytes.ReadUInt(4), "pointer to relocations"));
-		this.POINTER_TO_LINE_NUMBERS = h(new DWORD(bytes.ReadUInt(4), "pointer to line numbers"));
+		this.SIZE_OF_RAW_DATA = H(new DWORD(bytes.ReadUInt(4), "size of raw data"));
+		this.POINTER_TO_RAW_DATA = H(new DWORD(bytes.ReadUInt(4), "pointer to raw data"));
+		this.POINTER_TO_RELOCATIONS = H(new DWORD(bytes.ReadUInt(4), "pointer to relocations"));
+		this.POINTER_TO_LINE_NUMBERS = H(new DWORD(bytes.ReadUInt(4), "pointer to line numbers"));
 
-		this.NUMBER_OF_RELOCATIONS = h(new WORD(bytes.ReadUShort(2), "number of relocations"));
-		this.NUMBER_OF_LINE_NUMBERS = h(new WORD(bytes.ReadUShort(2), "number of line numbers"));
-		this.CHARACTERISTICS = h(new SectionCharacteristics(bytes.ReadUInt(4), "characteristics"));
+		this.NUMBER_OF_RELOCATIONS = H(new WORD(bytes.ReadUShort(2), "number of relocations"));
+		this.NUMBER_OF_LINE_NUMBERS = H(new WORD(bytes.ReadUShort(2), "number of line numbers"));
+		this.CHARACTERISTICS = H(new SectionCharacteristics(bytes.ReadUInt(4), "characteristics"));
 	}
 }

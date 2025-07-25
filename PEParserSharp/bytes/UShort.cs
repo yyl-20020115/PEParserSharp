@@ -35,159 +35,129 @@
 /// ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 /// POSSIBILITY OF SUCH DAMAGE.
 /// </summary>
-namespace PEParserSharp.Bytes
+namespace PEParserSharp.Bytes;
+
+/// <summary>
+/// The <code>unsigned short</code> type
+/// 
+/// @author Lukas Eder
+/// </summary>
+public sealed class UShort : UNumber, IComparable<UShort>
 {
-	/// <summary>
-	/// The <code>unsigned short</code> type
-	/// 
-	/// @author Lukas Eder
-	/// </summary>
-	public sealed class UShort : UNumber, IComparable<UShort>
-	{
 
-		/// <summary>
-		/// Generated UID
-		/// </summary>
-		private const long serialVersionUID = -6821055240959745390L;
+    /// <summary>
+    /// A constant holding the minimum value an <code>unsigned short</code> can
+    /// have, 0.
+    /// </summary>
+    public const int MIN_VALUE = 0x0000;
 
-		/// <summary>
-		/// A constant holding the minimum value an <code>unsigned short</code> can
-		/// have, 0.
-		/// </summary>
-		public const int MIN_VALUE = 0x0000;
+    /// <summary>
+    /// A constant holding the maximum value an <code>unsigned short</code> can
+    /// have, 2<sup>16</sup>-1.
+    /// </summary>
+    public const int MAX_VALUE = 0xffff;
 
-		/// <summary>
-		/// A constant holding the maximum value an <code>unsigned short</code> can
-		/// have, 2<sup>16</sup>-1.
-		/// </summary>
-		public const int MAX_VALUE = 0xffff;
+    /// <summary>
+    /// The value modelling the content of this <code>unsigned short</code>
+    /// </summary>
+    private readonly int value;
 
-		/// <summary>
-		/// The value modelling the content of this <code>unsigned short</code>
-		/// </summary>
-		private readonly int value;
+    /// <summary>
+    /// Create an <code>unsigned short</code>
+    /// </summary>
+    /// <exception cref="NumberFormatException"> If <code>value</code> does not contain a
+    ///             parsable <code>unsigned short</code>. </exception>
+    //JAVA TO C# CONVERTER WARNING: Method 'throws' clauses are not available in C#:
+    //ORIGINAL LINE: public static UShort valueOf(String value) throws NumberFormatException
+    public static UShort ValueOf(string value) => new UShort(value);
 
-		/// <summary>
-		/// Create an <code>unsigned short</code>
-		/// </summary>
-		/// <exception cref="NumberFormatException"> If <code>value</code> does not contain a
-		///             parsable <code>unsigned short</code>. </exception>
-//JAVA TO C# CONVERTER WARNING: Method 'throws' clauses are not available in C#:
-//ORIGINAL LINE: public static UShort valueOf(String value) throws NumberFormatException
-		public static UShort valueOf(string value)
-		{
-			return new UShort(value);
-		}
+    /// <summary>
+    /// Create an <code>unsigned short</code> by masking it with
+    /// <code>0xFFFF</code> i.e. <code>(short) -1</code> becomes
+    /// <code>(ushort) 65535</code>
+    /// </summary>
+    public static UShort ValueOf(short value) => new UShort(value);
 
-		/// <summary>
-		/// Create an <code>unsigned short</code> by masking it with
-		/// <code>0xFFFF</code> i.e. <code>(short) -1</code> becomes
-		/// <code>(ushort) 65535</code>
-		/// </summary>
-		public static UShort valueOf(short value)
-		{
-			return new UShort(value);
-		}
+    /// <summary>
+    /// Create an <code>unsigned short</code>
+    /// </summary>
+    /// <exception cref="NumberFormatException"> If <code>value</code> is not in the range
+    ///             of an <code>unsigned short</code> </exception>
+    //JAVA TO C# CONVERTER WARNING: Method 'throws' clauses are not available in C#:
+    //ORIGINAL LINE: public static UShort valueOf(int value) throws NumberFormatException
+    public static UShort ValueOf(int value) => new UShort(value);
 
-		/// <summary>
-		/// Create an <code>unsigned short</code>
-		/// </summary>
-		/// <exception cref="NumberFormatException"> If <code>value</code> is not in the range
-		///             of an <code>unsigned short</code> </exception>
-//JAVA TO C# CONVERTER WARNING: Method 'throws' clauses are not available in C#:
-//ORIGINAL LINE: public static UShort valueOf(int value) throws NumberFormatException
-		public static UShort valueOf(int value)
-		{
-			return new UShort(value);
-		}
+    /// <summary>
+    /// Create an <code>unsigned short</code>
+    /// </summary>
+    /// <exception cref="NumberFormatException"> If <code>value</code> is not in the range
+    ///             of an <code>unsigned short</code> </exception>
+    //JAVA TO C# CONVERTER WARNING: Method 'throws' clauses are not available in C#:
+    //ORIGINAL LINE: private UShort(int value) throws NumberFormatException
+    private UShort(int value)
+    {
+        this.value = value;
+        RangeCheck();
+    }
 
-		/// <summary>
-		/// Create an <code>unsigned short</code>
-		/// </summary>
-		/// <exception cref="NumberFormatException"> If <code>value</code> is not in the range
-		///             of an <code>unsigned short</code> </exception>
-//JAVA TO C# CONVERTER WARNING: Method 'throws' clauses are not available in C#:
-//ORIGINAL LINE: private UShort(int value) throws NumberFormatException
-		private UShort(int value)
-		{
-			this.value = value;
-			rangeCheck();
-		}
+    /// <summary>
+    /// Create an <code>unsigned short</code> by masking it with
+    /// <code>0xFFFF</code> i.e. <code>(short) -1</code> becomes
+    /// <code>(ushort) 65535</code>
+    /// </summary>
+    private UShort(short value) => this.value = value & MAX_VALUE;
 
-		/// <summary>
-		/// Create an <code>unsigned short</code> by masking it with
-		/// <code>0xFFFF</code> i.e. <code>(short) -1</code> becomes
-		/// <code>(ushort) 65535</code>
-		/// </summary>
-		private UShort(short value)
-		{
-			this.value = value & MAX_VALUE;
-		}
+    /// <summary>
+    /// Create an <code>unsigned short</code>
+    /// </summary>
+    /// <exception cref="NumberFormatException"> If <code>value</code> does not contain a
+    ///             parsable <code>unsigned short</code>. </exception>
+    //JAVA TO C# CONVERTER WARNING: Method 'throws' clauses are not available in C#:
+    //ORIGINAL LINE: private UShort(String value) throws NumberFormatException
+    private UShort(string value)
+    {
+        this.value = int.Parse(value);
+        RangeCheck();
+    }
 
-		/// <summary>
-		/// Create an <code>unsigned short</code>
-		/// </summary>
-		/// <exception cref="NumberFormatException"> If <code>value</code> does not contain a
-		///             parsable <code>unsigned short</code>. </exception>
-//JAVA TO C# CONVERTER WARNING: Method 'throws' clauses are not available in C#:
-//ORIGINAL LINE: private UShort(String value) throws NumberFormatException
-		private UShort(string value)
-		{
-			this.value = int.Parse(value);
-			rangeCheck();
-		}
+    //JAVA TO C# CONVERTER WARNING: Method 'throws' clauses are not available in C#:
+    //ORIGINAL LINE: private void rangeCheck() throws NumberFormatException
+    private void RangeCheck()
+    {
+        if (this.value < MIN_VALUE || this.value > MAX_VALUE)
+        {
+            throw new System.FormatException("Value is out of range : " + this.value);
+        }
+    }
 
-//JAVA TO C# CONVERTER WARNING: Method 'throws' clauses are not available in C#:
-//ORIGINAL LINE: private void rangeCheck() throws NumberFormatException
-		private void rangeCheck()
-		{
-			if (this.value < MIN_VALUE || this.value > MAX_VALUE)
-			{
-				throw new System.FormatException("Value is out of range : " + this.value);
-			}
-		}
+    public override int IntValue => this.value;
 
-        public override int intValue => this.value;
+    public override long LongValue => this.value;
 
-        public override long longValue => this.value;
+    public override float FloatValue => this.value;
 
-        public override float floatValue => this.value;
+    public override double DoubleValue => this.value;
 
-        public override double doubleValue => this.value;
+    public override int GetHashCode() => Convert.ToInt32(this.value).GetHashCode();
 
-        public override int GetHashCode()
-		{
-			return Convert.ToInt32(this.value).GetHashCode();
-		}
+    public override bool Equals(object obj)
+    {
+        if (object.ReferenceEquals(this, obj))
+        {
+            return true;
+        }
 
-		public override bool Equals(object obj)
-		{
-            if (object.ReferenceEquals(this, obj))
-            {
-                return true;
-            }
+        if (obj is UShort u)
+        {
+            return this.value == u.value;
+        }
 
-            if (obj is UShort)
-			{
-				return this.value == ((UShort) obj).value;
-			}
+        return false;
+    }
 
-			return false;
-		}
+    public override string ToString() => Convert.ToInt32(this.value).ToString();
 
-		public override string ToString()
-		{
-			return Convert.ToInt32(this.value).ToString();
-		}
+    public override string ToHexString() => this.value.ToString("x");
 
-		public override string ToHexString()
-		{
-			return this.value.ToString("x");
-		}
-
-		public int CompareTo(UShort o)
-		{
-			return this.value < o.value ? -1 : this.value == o.value ? 0 : 1;
-		}
-	}
+    public int CompareTo(UShort o) => this.value < o.value ? -1 : this.value == o.value ? 0 : 1;
 }

@@ -239,13 +239,13 @@ public sealed class UInteger : UNumber, IComparable<UInteger>
         return this;
     }
 
-    public override int intValue => (int)this.value;
+    public override int IntValue => (int)this.value;
 
-    public override long longValue => this.value;
+    public override long LongValue => this.value;
 
-    public override float floatValue => this.value;
+    public override float FloatValue => this.value;
 
-    public override double doubleValue => this.value;
+    public override double DoubleValue => this.value;
 
     public override int GetHashCode() => Convert.ToInt64(this.value).GetHashCode();
 

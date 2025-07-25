@@ -22,17 +22,17 @@ using PEParserSharp.Types;
 
 public class Header
 {
-//JAVA TO C# CONVERTER WARNING: Java wildcard generics have no direct equivalent in C#:
-//ORIGINAL LINE: public java.util.List<PEParserSharp.types.ByteDefinition<?>> headers = new java.util.ArrayList<PEParserSharp.types.ByteDefinition<?>>(0);
-	public IList<ByteDefinition> headers = new List<ByteDefinition>(0);
+    //JAVA TO C# CONVERTER WARNING: Java wildcard generics have no direct equivalent in C#:
+    //ORIGINAL LINE: public java.util.List<PEParserSharp.types.ByteDefinition<?>> headers = new java.util.ArrayList<PEParserSharp.types.ByteDefinition<?>>(0);
+    public IList<ByteDefinition> Headers = [];
 
 	public Header()
 	{
 	}
 
-	protected internal virtual T h<T>(T @object) where T: ByteDefinition
+	protected internal virtual T H<T>(T @object) where T: ByteDefinition
 	{
-		this.headers.Add(@object);
+		this.Headers.Add(@object);
 		return @object;
 	}
 }

@@ -23,16 +23,16 @@ using UShort = Bytes.UShort;
 
 public sealed class DllCharacteristicsType
 {
-	public static readonly DllCharacteristicsType IMAGE_DLL_CHARACTERISTICS_DYNAMIC_BASE = new DllCharacteristicsType("IMAGE_DLL_CHARACTERISTICS_DYNAMIC_BASE", InnerEnum.IMAGE_DLL_CHARACTERISTICS_DYNAMIC_BASE, "40", "DLL can be relocated at load time.");
-	public static readonly DllCharacteristicsType IMAGE_DLL_CHARACTERISTICS_FORCE_INTEGRITY = new DllCharacteristicsType("IMAGE_DLL_CHARACTERISTICS_FORCE_INTEGRITY", InnerEnum.IMAGE_DLL_CHARACTERISTICS_FORCE_INTEGRITY, "80", "Code Integrity checks are enforced.");
-	public static readonly DllCharacteristicsType IMAGE_DLL_CHARACTERISTICS_NX_COMPAT = new DllCharacteristicsType("IMAGE_DLL_CHARACTERISTICS_NX_COMPAT", InnerEnum.IMAGE_DLL_CHARACTERISTICS_NX_COMPAT, "100", "Image is NX compatible.");
-	public static readonly DllCharacteristicsType IMAGE_DLL_CHARACTERISTICS_ISOLATION = new DllCharacteristicsType("IMAGE_DLL_CHARACTERISTICS_ISOLATION", InnerEnum.IMAGE_DLL_CHARACTERISTICS_ISOLATION, "200", "Isolation aware, but do not isolate the image.");
-	public static readonly DllCharacteristicsType IMAGE_DLLCHARACTERISTICS_NO_SEH = new DllCharacteristicsType("IMAGE_DLLCHARACTERISTICS_NO_SEH", InnerEnum.IMAGE_DLLCHARACTERISTICS_NO_SEH, "400", "Does not use structured exception (SE) handling. No SE handler may be called in this image.");
-	public static readonly DllCharacteristicsType IMAGE_DLLCHARACTERISTICS_NO_BIND = new DllCharacteristicsType("IMAGE_DLLCHARACTERISTICS_NO_BIND", InnerEnum.IMAGE_DLLCHARACTERISTICS_NO_BIND, "800", "Do not bind the image.");
-	public static readonly DllCharacteristicsType IMAGE_DLLCHARACTERISTICS_WDM_DRIVER = new DllCharacteristicsType("IMAGE_DLLCHARACTERISTICS_WDM_DRIVER", InnerEnum.IMAGE_DLLCHARACTERISTICS_WDM_DRIVER, "2000", "A WDM driver.");
-	public static readonly DllCharacteristicsType IMAGE_DLLCHARACTERISTICS_TERMINAL_SERVER_AWARE = new DllCharacteristicsType("IMAGE_DLLCHARACTERISTICS_TERMINAL_SERVER_AWARE", InnerEnum.IMAGE_DLLCHARACTERISTICS_TERMINAL_SERVER_AWARE, "8000", "Terminal Server aware.");
+	public static readonly DllCharacteristicsType IMAGE_DLL_CHARACTERISTICS_DYNAMIC_BASE = new ("IMAGE_DLL_CHARACTERISTICS_DYNAMIC_BASE", InnerEnum.IMAGE_DLL_CHARACTERISTICS_DYNAMIC_BASE, "40", "DLL can be relocated at load time.");
+	public static readonly DllCharacteristicsType IMAGE_DLL_CHARACTERISTICS_FORCE_INTEGRITY = new ("IMAGE_DLL_CHARACTERISTICS_FORCE_INTEGRITY", InnerEnum.IMAGE_DLL_CHARACTERISTICS_FORCE_INTEGRITY, "80", "Code Integrity checks are enforced.");
+	public static readonly DllCharacteristicsType IMAGE_DLL_CHARACTERISTICS_NX_COMPAT = new ("IMAGE_DLL_CHARACTERISTICS_NX_COMPAT", InnerEnum.IMAGE_DLL_CHARACTERISTICS_NX_COMPAT, "100", "Image is NX compatible.");
+	public static readonly DllCharacteristicsType IMAGE_DLL_CHARACTERISTICS_ISOLATION = new ("IMAGE_DLL_CHARACTERISTICS_ISOLATION", InnerEnum.IMAGE_DLL_CHARACTERISTICS_ISOLATION, "200", "Isolation aware, but do not isolate the image.");
+	public static readonly DllCharacteristicsType IMAGE_DLLCHARACTERISTICS_NO_SEH = new ("IMAGE_DLLCHARACTERISTICS_NO_SEH", InnerEnum.IMAGE_DLLCHARACTERISTICS_NO_SEH, "400", "Does not use structured exception (SE) handling. No SE handler may be called in this image.");
+	public static readonly DllCharacteristicsType IMAGE_DLLCHARACTERISTICS_NO_BIND = new ("IMAGE_DLLCHARACTERISTICS_NO_BIND", InnerEnum.IMAGE_DLLCHARACTERISTICS_NO_BIND, "800", "Do not bind the image.");
+	public static readonly DllCharacteristicsType IMAGE_DLLCHARACTERISTICS_WDM_DRIVER = new ("IMAGE_DLLCHARACTERISTICS_WDM_DRIVER", InnerEnum.IMAGE_DLLCHARACTERISTICS_WDM_DRIVER, "2000", "A WDM driver.");
+	public static readonly DllCharacteristicsType IMAGE_DLLCHARACTERISTICS_TERMINAL_SERVER_AWARE = new ("IMAGE_DLLCHARACTERISTICS_TERMINAL_SERVER_AWARE", InnerEnum.IMAGE_DLLCHARACTERISTICS_TERMINAL_SERVER_AWARE, "8000", "Terminal Server aware.");
 
-	private static readonly List<DllCharacteristicsType> valueList = new List<DllCharacteristicsType>();
+    private static readonly List<DllCharacteristicsType> valueList = [];
 
 	static DllCharacteristicsType()
 	{
@@ -76,10 +76,10 @@ public sealed class DllCharacteristicsType
 		innerEnumValue = innerEnum;
 	}
 
-	public static DllCharacteristicsType[] get(PEParserSharp.Bytes.UShort key)
+	public static DllCharacteristicsType[] Get(PEParserSharp.Bytes.UShort key)
 	{
-		IList<DllCharacteristicsType> chars = new List<DllCharacteristicsType>(0);
-		int keyAsInt = key.intValue;
+		IList<DllCharacteristicsType> chars = [];
+		int keyAsInt = key.IntValue;
 
 		foreach (DllCharacteristicsType c in values())
 		{
@@ -90,33 +90,21 @@ public sealed class DllCharacteristicsType
 			}
 		}
 
-		return ((List<DllCharacteristicsType>)chars).ToArray();
+        return [.. ((List<DllCharacteristicsType>)chars)];
 	}
 
-	public string Description
-	{
-		get
-		{
-			return this.description;
-		}
-	}
+    public string Description => this.description;
 
-	public static DllCharacteristicsType[] values()
-	{
-		return valueList.ToArray();
-	}
+    public static DllCharacteristicsType[] values() => valueList.ToArray();
 
-	public int ordinal()
+    public int ordinal()
 	{
 		return ordinalValue;
 	}
 
-	public override string ToString()
-	{
-		return nameValue;
-	}
+    public override string ToString() => nameValue;
 
-	public static DllCharacteristicsType valueOf(string name)
+    public static DllCharacteristicsType ValueOf(string name)
 	{
 		foreach (DllCharacteristicsType enumInstance in DllCharacteristicsType.valueList)
 		{

@@ -31,11 +31,11 @@ namespace PEParserSharp.Types
 			this.value = value;
 		}
 
-        public override sealed DllCharacteristicsType[] get => DllCharacteristicsType.get(this.value);
+        public override sealed DllCharacteristicsType[] Get => DllCharacteristicsType.Get(this.value);
 
         public override void Format(StringBuilder b)
 		{
-			DllCharacteristicsType[] characteristics = get;
+			DllCharacteristicsType[] characteristics = Get;
 
 
 			b.Append(DescriptiveName).Append(":").Append(System.Environment.NewLine);

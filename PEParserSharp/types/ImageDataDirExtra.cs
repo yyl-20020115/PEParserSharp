@@ -36,19 +36,19 @@ namespace PEParserSharp.Types
 			this.size = new TInteger(bytes.ReadUInt(4), "Size");
 		}
 
-        public override UInteger get => this.virtualAddress.get;
+        public override UInteger Get => this.virtualAddress.Get;
 
         public virtual UInteger Size
 		{
 			get
 			{
-				return this.size.get;
+				return this.size.Get;
 			}
 		}
 
 		public override void Format(StringBuilder b)
 		{
-			b.Append(DescriptiveName).Append(": ").Append(System.Environment.NewLine).Append("\t").Append("address: ").Append(this.virtualAddress).Append(" (0x").Append(this.virtualAddress.get.ToHexString()).Append(")").Append(System.Environment.NewLine).Append("\t").Append("size: ").Append(this.size.get).Append(" (0x").Append(this.size.get.ToHexString()).Append(")").Append(System.Environment.NewLine);
+			b.Append(DescriptiveName).Append(": ").Append(System.Environment.NewLine).Append("\t").Append("address: ").Append(this.virtualAddress).Append(" (0x").Append(this.virtualAddress.Get.ToHexString()).Append(")").Append(System.Environment.NewLine).Append("\t").Append("size: ").Append(this.size.Get).Append(" (0x").Append(this.size.Get.ToHexString()).Append(")").Append(System.Environment.NewLine);
 		}
 	}
 

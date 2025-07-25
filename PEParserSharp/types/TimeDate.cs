@@ -16,34 +16,32 @@ using System.Text;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace PEParserSharp.Types
+namespace PEParserSharp.Types;
+
+
+using UInteger = PEParserSharp.Bytes.UInteger;
+
+public class TimeDate : ByteDefinition<DateTime>
 {
 
-	using UInteger = PEParserSharp.Bytes.UInteger;
+	private readonly UInteger value;
 
-	public class TimeDate : ByteDefinition<DateTime>
+	public TimeDate(UInteger value, string descriptiveName) : base(descriptiveName)
 	{
+		this.value = value;
+	}
 
-		private readonly UInteger value;
-
-		public TimeDate(UInteger value, string descriptiveName) : base(descriptiveName)
-		{
-			this.value = value;
-		}
-
-        public override sealed DateTime get
+        public override sealed DateTime Get
         {
             get
             {
-                long millis = this.value.longValue * 1000;
+                long millis = this.value.LongValue * 1000;
                 return new DateTime(millis);
             }
         }
 
         public override void Format(StringBuilder b)
-		{
-			b.Append(DescriptiveName).Append(": ").Append(get.ToString()).Append(System.Environment.NewLine);
-		}
+	{
+		b.Append(DescriptiveName).Append(": ").Append(Get.ToString()).Append(System.Environment.NewLine);
 	}
-
 }

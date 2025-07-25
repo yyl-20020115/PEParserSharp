@@ -24,7 +24,7 @@ public class WORD(UShort value, string descriptiveName) : ByteDefinition<UShort>
 
 	private readonly UShort value = value;
 
-    public override sealed UShort get => this.value;
+    public override sealed UShort Get => this.value;
 
     public sealed override void Format(StringBuilder b) => b.Append(DescriptiveName).Append(": ").Append(this.value).Append(" (0x").Append(this.value.ToHexString()).Append(")").Append(System.Environment.NewLine);
 }

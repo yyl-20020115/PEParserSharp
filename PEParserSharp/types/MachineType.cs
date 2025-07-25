@@ -31,11 +31,11 @@ namespace PEParserSharp.Types
 			this.value = value;
 		}
 
-        public override sealed MachineTypeType get => MachineTypeType.get(this.value);
+        public override sealed MachineTypeType Get => MachineTypeType.get(this.value);
 
         public override void Format(StringBuilder b)
 		{
-			b.Append(DescriptiveName).Append(": ").Append(get.Description).Append(System.Environment.NewLine);
+			b.Append(DescriptiveName).Append(": ").Append(Get.Description).Append(System.Environment.NewLine);
 		}
 	}
 

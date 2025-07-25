@@ -29,11 +29,11 @@ namespace PEParserSharp.Types
 			this.value = value;
 		}
 
-        public override sealed UInteger get => this.value;
+        public override sealed UInteger Get => this.value;
 
         public override void Format(StringBuilder b)
 		{
-			b.Append(DescriptiveName).Append(": ").Append(this.value.longValue).Append(System.Environment.NewLine);
+			b.Append(DescriptiveName).Append(": ").Append(this.value.LongValue).Append(System.Environment.NewLine);
 		}
 	}
 

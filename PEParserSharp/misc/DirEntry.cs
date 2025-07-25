@@ -20,19 +20,19 @@ namespace PEParserSharp.Misc;
 public sealed class DirEntry
 {
 
-	public static readonly DirEntry EXPORT = new DirEntry("EXPORT", InnerEnum.EXPORT, "Export Directory");
-	public static readonly DirEntry IMPORT = new DirEntry("IMPORT", InnerEnum.IMPORT, "Import Directory");
-	public static readonly DirEntry RESOURCE = new DirEntry("RESOURCE", InnerEnum.RESOURCE, "Resource Directory");
-	public static readonly DirEntry EXCEPTION = new DirEntry("EXCEPTION", InnerEnum.EXCEPTION, "Exception Directory");
-	public static readonly DirEntry SECURITY = new DirEntry("SECURITY", InnerEnum.SECURITY, "Security Directory");
-	public static readonly DirEntry BASERELOC = new DirEntry("BASERELOC", InnerEnum.BASERELOC, "Base Relocation Table");
-	public static readonly DirEntry DEBUG = new DirEntry("DEBUG", InnerEnum.DEBUG, "Debug Directory");
-	public static readonly DirEntry COPYRIGHT = new DirEntry("COPYRIGHT", InnerEnum.COPYRIGHT, "Description String");
-	public static readonly DirEntry GLOBALPTR = new DirEntry("GLOBALPTR", InnerEnum.GLOBALPTR, "Machine Value (MIPS GP)");
-	public static readonly DirEntry TLS = new DirEntry("TLS", InnerEnum.TLS, "TLS Directory");
-	public static readonly DirEntry LOAD_CONFIG = new DirEntry("LOAD_CONFIG", InnerEnum.LOAD_CONFIG, "Load Configuration Directory");
+	public static readonly DirEntry EXPORT = new ("EXPORT", InnerEnum.EXPORT, "Export Directory");
+	public static readonly DirEntry IMPORT = new ("IMPORT", InnerEnum.IMPORT, "Import Directory");
+	public static readonly DirEntry RESOURCE = new ("RESOURCE", InnerEnum.RESOURCE, "Resource Directory");
+	public static readonly DirEntry EXCEPTION = new ("EXCEPTION", InnerEnum.EXCEPTION, "Exception Directory");
+	public static readonly DirEntry SECURITY = new ("SECURITY", InnerEnum.SECURITY, "Security Directory");
+	public static readonly DirEntry BASERELOC = new ("BASERELOC", InnerEnum.BASERELOC, "Base Relocation Table");
+	public static readonly DirEntry DEBUG = new ("DEBUG", InnerEnum.DEBUG, "Debug Directory");
+	public static readonly DirEntry COPYRIGHT = new ("COPYRIGHT", InnerEnum.COPYRIGHT, "Description String");
+	public static readonly DirEntry GLOBALPTR = new ("GLOBALPTR", InnerEnum.GLOBALPTR, "Machine Value (MIPS GP)");
+	public static readonly DirEntry TLS = new ("TLS", InnerEnum.TLS, "TLS Directory");
+	public static readonly DirEntry LOAD_CONFIG = new ("LOAD_CONFIG", InnerEnum.LOAD_CONFIG, "Load Configuration Directory");
 
-	private static readonly List<DirEntry> valueList = new List<DirEntry>();
+	private static readonly List<DirEntry> valueList = [];
 
 	static DirEntry()
 	{
@@ -49,7 +49,7 @@ public sealed class DirEntry
 		valueList.Add(LOAD_CONFIG);
 	}
 
-	public enum InnerEnum
+	public enum InnerEnum : int
 	{
 		EXPORT,
 		IMPORT,
@@ -80,30 +80,18 @@ public sealed class DirEntry
 		innerEnumValue = innerEnum;
 	}
 
-	public string Description
-	{
-		get
-		{
-			return this.description;
-		}
-	}
+    public string Description => this.description;
 
-	public static DirEntry[] values()
+    public static DirEntry[] values()
 	{
 		return valueList.ToArray();
 	}
 
-	public int ordinal()
-	{
-		return ordinalValue;
-	}
+    public int Ordinal() => ordinalValue;
 
-	public override string ToString()
-	{
-		return nameValue;
-	}
+    public override string ToString() => nameValue;
 
-	public static DirEntry valueOf(string name)
+    public static DirEntry ValueOf(string name)
 	{
 		foreach (DirEntry enumInstance in DirEntry.valueList)
 		{

@@ -70,11 +70,11 @@ public class ResourceDirectoryEntry : Header
 		//   |- Dialog
 		//   |- String
 
-		this.NAME = h(new ResourceDirName(bytes.ReadUInt(4), "name", bytes, level));
-		this.DATA_OFFSET = h(new DWORD(bytes.ReadUInt(4), "data offset"));
+		this.NAME = H(new ResourceDirName(bytes.ReadUInt(4), "name", bytes, level));
+		this.DATA_OFFSET = H(new DWORD(bytes.ReadUInt(4), "data offset"));
 
 
-		long dataOffset = ENTRY_OFFSET_MASK & this.DATA_OFFSET.get.longValue;
+		long dataOffset = ENTRY_OFFSET_MASK & this.DATA_OFFSET.Get.LongValue;
 		if (dataOffset == 0L)
 		{
 			// if it is ZERO, than WTF? is it a a directory header! (maybe?)
@@ -87,7 +87,7 @@ public class ResourceDirectoryEntry : Header
 			throw new Exception("Unable to set offset to more than 2gb!");
 		}
 
-		this.isDirectory = 0L != (DATA_IS_DIRECTORY_MASK & this.DATA_OFFSET.get.longValue);
+		this.isDirectory = 0L != (DATA_IS_DIRECTORY_MASK & this.DATA_OFFSET.Get.LongValue);
 
 		int saved = bytes.Position;
 		bytes.Seek(bytes.Marked + (int) dataOffset);

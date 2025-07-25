@@ -31,7 +31,7 @@ namespace PEParserSharp.Types
 			this.value = value;
 		}
 
-        public override sealed UInteger get => this.value;
+        public override sealed UInteger Get => this.value;
 
         public override void Format(StringBuilder b)
 		{

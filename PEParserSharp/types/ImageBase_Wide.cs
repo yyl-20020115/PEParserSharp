@@ -31,11 +31,11 @@ namespace PEParserSharp.Types
 			this.value = value;
 		}
 
-        public override sealed ULong get => this.value;
+        public override sealed ULong Get => this.value;
 
         public override void Format(StringBuilder b)
 		{
-			ImageBaseType imageBase = ImageBaseType.get(UInteger.ValueOf(this.value.longValue));
+			ImageBaseType imageBase = ImageBaseType.get(UInteger.ValueOf(this.value.LongValue));
 
 			b.Append(DescriptiveName).Append(": ").Append(this.value).Append(" (0x").Append(this.value.ToHexString()).Append(") (");
 
